@@ -1,0 +1,26 @@
+import kr.entree.spigradle.attribute.*
+
+plugins {
+    id 'java'
+    id 'kr.entree.spigradle' version '1.2.4'
+}
+
+group 'university.quaranteen'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url 'https://oss.sonatype.org/content/repositories/central' }
+}
+
+spigot {
+    authors = ['Quaranteen University Team']
+    apiVersion = '1.15'
+    load = Load.STARTUP
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.12'
+    compileOnly paper('1.15.2')
+}
