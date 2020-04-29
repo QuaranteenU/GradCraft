@@ -3,6 +3,7 @@ import kr.entree.spigradle.attribute.*
 plugins {
     id 'java'
     id 'kr.entree.spigradle' version '1.2.4'
+    id 'io.ebean' version '11.40.1'
 }
 
 group 'university.quaranteen'
@@ -10,17 +11,27 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    enginehub()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     maven { url 'https://oss.sonatype.org/content/repositories/central' }
+    maven { url 'https://ci.mg-dev.eu/plugin/repository/everything' }
 }
 
 spigot {
     authors = ['Quaranteen University Team']
     apiVersion = '1.15'
     load = Load.STARTUP
+    depends = ['BKCommonLib']
 }
 
 dependencies {
+    annotationProcessor 'io.ebean:querybean-generator:11.39.3'
     testImplementation 'junit:junit:4.12'
     compileOnly paper('1.15.2')
+    compileOnly worldedit()
+    compileOnly worldguard()
+    compileOnly 'com.bergerkiller.bukkit:BKCommonLib:1.15.2-v3'
+    implementation 'io.ebean:ebean:12.2.6'
+    implementation 'io.ebean:ebean-querybean:12.2.6'
+    implementation 'mysql:mysql-connector-java:8.0.20'
 }

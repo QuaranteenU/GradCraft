@@ -1,0 +1,5 @@
+db:
+  username: root
+  password: asdasdf
+  server: jdbc:mysql://localhost:3306/graduation
+  driver: com.mysql.jdbc.Driver
