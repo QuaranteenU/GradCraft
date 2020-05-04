@@ -12,6 +12,7 @@ repositories {
     mavenCentral()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     maven { url 'https://oss.sonatype.org/content/repositories/central' }
+    maven { url "https://ci.mg-dev.eu/plugin/repository/everything/" }
 }
 
 spigot {
@@ -23,4 +24,5 @@ spigot {
 dependencies {
     testImplementation 'junit:junit:4.12'
     compileOnly paper('1.15.2')
+    compileOnly 'com.bergerkiller.bukkit:BKCommonLib:1.15.2-v4-SNAPSHOT'
 }
