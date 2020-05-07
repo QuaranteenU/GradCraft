@@ -15,9 +15,9 @@ public class Graduate extends ModelBase {
         this.name = name;
         this.email = email;
         this.degreeLevel = degreeLevel;
+        this.major = major;
         this.university = university;
         this.ceremony = ceremony;
-
     }
 
     @NotNull @Length(256)
