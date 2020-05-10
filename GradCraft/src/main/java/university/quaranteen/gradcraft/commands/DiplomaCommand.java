@@ -14,8 +14,8 @@ public class DiplomaCommand implements CommandExecutor {
     public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command cmd, @Nonnull String label, @Nonnull String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
-            Diploma d = new Diploma();
-            ItemStack item = d.createItem(p);
+            Diploma d = new Diploma(p, p.getDisplayName(), "Underwater Basket Weaving", "Bachelor's");
+            ItemStack item = d.createItem();
             p.getInventory().addItem(item);
             sender.sendMessage("Diploma given to: " + p.getDisplayName());
             return true;

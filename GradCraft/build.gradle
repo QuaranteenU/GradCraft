@@ -3,6 +3,7 @@ import kr.entree.spigradle.attribute.*
 plugins {
     id 'java'
     id 'kr.entree.spigradle' version '1.2.4'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
     id 'io.ebean' version '11.40.1'
 }
 
@@ -20,9 +21,24 @@ repositories {
 spigot {
     authors = ['Quaranteen University Team']
     apiVersion = '1.15'
-    load = Load.STARTUP
-    depends = ['BKCommonLib']
+    load = Load.POST_WORLD
+    depends = ['BKCommonLib', 'WorldGuard']
+    name = 'GradCraft'
+    description = 'A plugin for QU'
+    website = 'https://quaranteen.university/'
+    commands {
+        diploma {
+            description = 'Diploma command'
+            usage = '/diploma <name> <major>'
+        }
+        dbdiploma {
+            description = 'Get your diploma from the database!'
+            usage = '/dbdiploma'
+        }
+    }
 }
+
+tasks.build.dependsOn tasks.shadowJar
 
 dependencies {
     annotationProcessor 'io.ebean:querybean-generator:11.39.3'
@@ -31,7 +47,7 @@ dependencies {
     compileOnly 'com.bergerkiller.bukkit:BKCommonLib:1.15.2-v4-SNAPSHOT'
     compileOnly worldedit()
     compileOnly worldguard()
-    implementation 'io.ebean:ebean:12.2.6'
-    implementation 'io.ebean:ebean-querybean:12.2.6'
     implementation 'mysql:mysql-connector-java:8.0.20'
+    implementation 'com.zaxxer:HikariCP:3.4.5'
+
 }
