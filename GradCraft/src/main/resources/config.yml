@@ -3,3 +3,9 @@ db:
   password: asdasdf
   server: jdbc:mysql://localhost:3306/graduation
   driver: com.mysql.jdbc.Driver
+gradWorld: world
+stageRegion: stage
+gradTpPoint:
+  x: 0
+  y: 128
+  z: 0

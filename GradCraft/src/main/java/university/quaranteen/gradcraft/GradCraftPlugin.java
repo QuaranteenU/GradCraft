@@ -2,19 +2,22 @@ package university.quaranteen.gradcraft;
 
 import com.bergerkiller.bukkit.common.Common;
 import com.bergerkiller.bukkit.common.PluginBase;
-import io.ebean.EbeanServer;
-import io.ebean.EbeanServerFactory;
-import io.ebean.config.ServerConfig;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import kr.entree.spigradle.Plugin;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import university.quaranteen.gradcraft.commands.DbDiplomaCommand;
+import university.quaranteen.gradcraft.commands.DiplomaCommand;
+import university.quaranteen.gradcraft.diploma.Diploma;
 
 import java.util.Properties;
 
 @Plugin
 public class GradCraftPlugin extends PluginBase {
     public FileConfiguration config;
-    public EbeanServer db;
+
+    public HikariDataSource db;
 
     @Override
     public int getMinimumLibVersion() {
@@ -26,21 +29,22 @@ public class GradCraftPlugin extends PluginBase {
         // save default config if it doesn't exist already
         saveDefaultConfig();
 
+        config = getConfig();
+
         // connect to database
-        ServerConfig cfg = new ServerConfig();
+        HikariConfig dbconfig = new HikariConfig();
+        dbconfig.setJdbcUrl(config.getString("db.server", "jdbc:mysql://localhost:3306/gradcraft"));
+        dbconfig.setUsername(config.getString("db.username", "root"));
+        dbconfig.setPassword(config.getString("db.password", "asdfasdf"));
+        dbconfig.setPoolName("gradcraft");
+        //dbconfig.setDataSourceClassName(config.getString("db.datasource", "com.mysql.cj.jdbc.MysqlDataSource"));
 
-        Properties dbconfig = new Properties();
-        dbconfig.put("ebean.db.ddl.generate", "true");
-        dbconfig.put("ebean.db.ddl.run", "true");
-        dbconfig.put("datasource.db.username", config.getString("db.username", "root"));
-        dbconfig.put("datasource.db.password", config.getString("db.password", ""));
-        dbconfig.put("datasource.db.databaseUrl", config.getString("db.server", "jdbc:mysql://localhost:3306/graduation"));
-        dbconfig.put("datasource.db.databaseDriver", config.getString("db.driver", "com.mysql.jdbc.Driver"));
-
-        cfg.loadFromProperties(dbconfig);
-        db = EbeanServerFactory.create(cfg);
+        db = new HikariDataSource(dbconfig);
 
         getLogger().info("GradCraft initialized!");
+
+        this.getCommand("diploma").setExecutor(new DiplomaCommand());
+        this.getCommand("dbdiploma").setExecutor(new DbDiplomaCommand(this));
     }
 
     @Override
