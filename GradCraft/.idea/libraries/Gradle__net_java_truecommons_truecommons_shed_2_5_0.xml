@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: net.java.truecommons:truecommons-shed:2.5.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.java.truecommons/truecommons-shed/2.5.0/a2ae323b047d1d6af3177a54ef708250521415af/truecommons-shed-2.5.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.java.truecommons/truecommons-shed/2.5.0/93a249b7a1d3dd5c044cd4c9bee20988e8075171/truecommons-shed-2.5.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: net.java.truevfs:truevfs-access:0.12.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.java.truevfs/truevfs-access/0.12.1/4617b37ee9413c4a17216051b6bc7fe6628ef8a4/truevfs-access-0.12.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.java.truevfs/truevfs-access/0.12.1/f605971b7843fac74c7f5bfdc6c1b46310218036/truevfs-access-0.12.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

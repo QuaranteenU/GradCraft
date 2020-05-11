@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: net.java.truecommons:truecommons-annotations:2.5.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.java.truecommons/truecommons-annotations/2.5.0/24f0f547868ec7a5f83af1c6a428ec04b1e99a7a/truecommons-annotations-2.5.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.java.truecommons/truecommons-annotations/2.5.0/4bf1cceb89c588160cc5c808e0b1a97815a350ea/truecommons-annotations-2.5.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

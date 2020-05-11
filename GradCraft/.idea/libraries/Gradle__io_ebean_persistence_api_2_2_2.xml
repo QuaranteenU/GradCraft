@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.ebean:persistence-api:2.2.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ebean/persistence-api/2.2.2/61ce4c1455e1b1b3727da5f50d73e934de884a45/persistence-api-2.2.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ebean/persistence-api/2.2.2/cfac9a48ee2ab82f97227a95b76abf1aea73c2d6/persistence-api-2.2.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

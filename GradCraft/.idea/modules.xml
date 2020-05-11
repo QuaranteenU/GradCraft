@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/GradCraft.iml" filepath="$PROJECT_DIR$/GradCraft.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GradCraft.main.iml" filepath="$PROJECT_DIR$/.idea/modules/GradCraft.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GradCraft.test.iml" filepath="$PROJECT_DIR$/.idea/modules/GradCraft.test.iml" />
+    </modules>
+  </component>
+</project>

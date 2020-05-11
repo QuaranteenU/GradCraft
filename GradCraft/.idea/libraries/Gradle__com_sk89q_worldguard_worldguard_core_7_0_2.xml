@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.sk89q.worldguard:worldguard-core:7.0.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sk89q.worldguard/worldguard-core/7.0.2/c527713502ba8d723af9ea471ea52eec34d80d10/worldguard-core-7.0.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sk89q.worldguard/worldguard-core/7.0.2/c333e2b16a25c2e6362a36730b6b444732c16f70/worldguard-core-7.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: net.java.truecommons:truecommons-logging:2.5.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.java.truecommons/truecommons-logging/2.5.0/e881845375b39e5960d917be2f92af6d8f1d8752/truecommons-logging-2.5.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.java.truecommons/truecommons-logging/2.5.0/889084c0fc0402dd962aad3b0121a77953a03fbc/truecommons-logging-2.5.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.sk89q.worldedit:worldedit-bukkit:7.1.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sk89q.worldedit/worldedit-bukkit/7.1.0/2a402a8ec208f39b03677a4260b49d53a4e8881c/worldedit-bukkit-7.1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sk89q.worldedit/worldedit-bukkit/7.1.0/78b2cb93ec076c52f07ec053113c6709abf00835/worldedit-bukkit-7.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
