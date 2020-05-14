@@ -17,6 +17,7 @@ public class Graduate {
         this.seniorQuote = seniorQuote;
         this.universityName = universityName;
         this.graduated = graduated;
+        this.ceremony = ceremony;
         if (uuid == null)
             this.uuid = Graduate.STEVE_UUID;
         else
@@ -33,6 +34,7 @@ public class Graduate {
         this.seniorQuote = seniorQuote;
         this.universityName = universityName;
         this.graduated = graduated;
+        this.ceremony = ceremony;
         if (uuid == null)
             this.uuid = Graduate.STEVE_UUID;
         else
