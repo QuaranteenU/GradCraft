@@ -50,8 +50,12 @@ public class RobesCommand implements CommandExecutor {
             res = stmt.executeQuery();
             if (!res.next()) {
                 p.sendMessage(new MessageBuilder().red("You're not a graduate!").toString());
+                res.close();
+                c.close();
                 return true;
             }
+            res.close();
+            c.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
             return true;
