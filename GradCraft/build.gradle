@@ -35,6 +35,62 @@ spigot {
             description = 'Get your diploma from the database!'
             usage = '/dbdiploma'
         }
+        cerlist {
+            description = 'List available ceremonies'
+            usage = '/cerlist'
+            permission = 'gc.ceremony.runner'
+        }
+        cerstart {
+            description = 'Start a ceremony'
+            usage = '/cerstart <id>'
+            permission = 'gc.ceremony.runner'
+            permissionMessage = 'You don\'t have permission!'
+        }
+        cerstop {
+            description = 'Stop the currently running ceremony'
+            usage = '/cerstop'
+            permission = 'gc.ceremony.runner'
+            permissionMessage = 'You don\'t have permission!'
+        }
+        cerclaim {
+            description = 'Become the show runner for the running ceremony'
+            usage = '/cerclaim'
+            permission = 'gc.ceremony.runner'
+            permissionMessage = 'You don\'t have permission!'
+        }
+        cernext {
+            description = 'Advance to the next graduate'
+            usage = '/cernext'
+            permission = 'gc.ceremony.runner'
+            permissionMessage = 'You don\'t have permission!'
+        }
+        joinqueue {
+            description = 'Join the graduation queue!'
+            usage = '/joinqueue'
+            permission = 'gc.ceremony.graduate'
+            permissionMessage = 'You don\'t have permission!'
+        }
+        robes {
+            description = 'Get graduation robes!'
+            usage = '/robes <red|black|blue>'
+            permission = 'gc.ceremony.graduate'
+            permissionMessage = 'You don\'t have permission!'
+        }
+    }
+    permissions {
+        'gc.ceremony.*' {
+            defaults = 'op'
+            children = [
+                    'gc.ceremony.runner': true,
+                    'gc.ceremony.graduate': true
+            ]
+        }
+        'gc.ceremony.runner' {
+            defaults = 'op'
+        }
+        'gc.ceremony.graduate' {
+            defaults = true
+        }
     }
 }
 

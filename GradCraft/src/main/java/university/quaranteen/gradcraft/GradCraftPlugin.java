@@ -7,8 +7,10 @@ import com.zaxxer.hikari.HikariDataSource;
 import kr.entree.spigradle.Plugin;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import university.quaranteen.gradcraft.ceremony.commands.*;
 import university.quaranteen.gradcraft.commands.DbDiplomaCommand;
 import university.quaranteen.gradcraft.commands.DiplomaCommand;
+import university.quaranteen.gradcraft.commands.RobesCommand;
 import university.quaranteen.gradcraft.diploma.Diploma;
 
 import java.util.Properties;
@@ -43,8 +45,18 @@ public class GradCraftPlugin extends PluginBase {
 
         getLogger().info("GradCraft initialized!");
 
+        // register commands
         this.getCommand("diploma").setExecutor(new DiplomaCommand());
         this.getCommand("dbdiploma").setExecutor(new DbDiplomaCommand(this));
+        this.getCommand("robes").setExecutor(new RobesCommand(this));
+
+        // ceremony commands
+        this.getCommand("cerclaim").setExecutor(new ClaimCommand(this));
+        this.getCommand("cernext").setExecutor(new NextCommand(this));
+        this.getCommand("cerstart").setExecutor(new StartCommand(this));
+        this.getCommand("cerstop").setExecutor(new StopCommand(this));
+        this.getCommand("joinqueue").setExecutor(new JoinQueueCommand(this));
+
     }
 
     @Override
