@@ -1,69 +1,72 @@
 package university.quaranteen.gradcraft.ceremony;
 
+import com.bergerkiller.bukkit.common.MessageBuilder;
+import com.destroystokyo.paper.Title;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.zaxxer.hikari.HikariDataSource;
+import net.md_5.bungee.api.chat.BaseComponent;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import university.quaranteen.gradcraft.GradCraftPlugin;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ActiveCeremony {
-    public ActiveCeremony(int id, World world, HikariDataSource db) {
+    public ActiveCeremony(int id, World world, GradCraftPlugin plugin) {
         this.id = id;
-        this.world = world;
-        this.db = db;
-        this.onlineGraduateQueue = new ConcurrentLinkedQueue<>();
+        this.db = plugin.db;
+        this.stageController = new StageController(world, plugin);
     }
 
     private int id;
     private World world;
     private Player controller;
-    private Queue<Graduate> onlineGraduateQueue;
     private HikariDataSource db;
+    private Graduate currentGraduate;
+    private final StageController stageController;
 
     public int getId() {
         return id;
     }
 
     public World getWorld() {
-        return world;
-    }
-
-    public Queue<Graduate> getOnlineGraduateQueue() {
-        return onlineGraduateQueue;
+        return stageController.getWorld();
     }
 
     public Player getController() {
         return controller;
     }
 
+    public StageController getStageController() { return stageController; }
+
+    public Graduate getCurrentGraduate() {
+        return currentGraduate;
+    }
+
     public void setController(Player player) {
         this.controller = player;
     }
 
-    public Graduate getNextGraduate() {
-        // if queue isn't empty, return the next person in the queue
-        if (onlineGraduateQueue.size() > 0) {
-            return onlineGraduateQueue.remove();
-        }
-
-        // queue is empty, so let's pull a random graduate from this ceremony from the database
+    public Graduate nextGraduate() {
         Connection c;
         ResultSet res;
         try {
             c = db.getConnection();
-            PreparedStatement stmt = c.prepareStatement("SELECT g.id, g.name, pronunciation, degreeLevel, honors, major, seniorQuote, uuid, u.name " +
-                    "FROM graduates g join universities u on g.university = u.id " +
-                    "WHERE NOT graduated AND ceremony=? " +
-                    "ORDER BY RAND() LIMIT 1;");
+            PreparedStatement stmt = c.prepareStatement("SELECT g.id, g.name, pronunciation, degreeLevel, honors,  major, seniorQuote, uuid, u.name, graduated, timeslot " +
+                    "from graduates g join universities u on g.university = u.id " +
+                    "where not graduated and ceremony = ? " +
+                    "order by timeslot asc "+
+                    "limit 1;");
             stmt.setInt(1, this.id);
             res = stmt.executeQuery();
+            Graduate g = null;
             if (res.next()) {
-                Graduate g = new Graduate(res.getInt(1),
+                g = new Graduate(
+                        res.getInt(1),
                         this,
                         res.getString(2),
                         res.getString(3),
@@ -73,16 +76,21 @@ public class ActiveCeremony {
                         res.getString(7),
                         res.getString(8),
                         res.getString(9),
-                        false);
-                res.close();
-                c.close();
-                return g;
+                        res.getBoolean(10),
+                        res.getTimestamp(11)
+                );
             }
+            res.close();
+            c.close();
+
+            this.currentGraduate = g;
+            this.stageController.nextGraduate(g);
+
+            return g;
         } catch (SQLException ex) {
             ex.printStackTrace();
+            return null;
         }
-
-        return null;
     }
 
     public void signalGraduated(Graduate graduate) {

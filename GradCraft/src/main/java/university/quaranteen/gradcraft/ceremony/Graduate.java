@@ -4,10 +4,12 @@ import com.bergerkiller.bukkit.common.utils.PlayerUtil;
 import org.bukkit.entity.Player;
 import university.quaranteen.gradcraft.diploma.Diploma;
 
+import java.sql.Timestamp;
+import java.time.Duration;
 import java.util.UUID;
 
 public class Graduate {
-    public Graduate(int id, ActiveCeremony ceremony, String name, String pronunciation, String degreeLevel, String honors, String major, String seniorQuote, UUID uuid, String universityName, boolean graduated) {
+    public Graduate(int id, ActiveCeremony ceremony, String name, String pronunciation, String degreeLevel, String honors, String major, String seniorQuote, UUID uuid, String universityName, boolean graduated, Timestamp timeslot) {
         this.id = id;
         this.name = name;
         this.pronunciation = pronunciation;
@@ -22,9 +24,10 @@ public class Graduate {
             this.uuid = Graduate.STEVE_UUID;
         else
             this.uuid = uuid;
+        this.timeslot = timeslot;
     }
 
-    public Graduate(int id, ActiveCeremony ceremony, String name, String pronunciation, String degreeLevel, String honors, String major, String seniorQuote, String uuid, String universityName, boolean graduated) {
+    public Graduate(int id, ActiveCeremony ceremony, String name, String pronunciation, String degreeLevel, String honors, String major, String seniorQuote, String uuid, String universityName, boolean graduated, Timestamp timeslot) {
         this.id = id;
         this.name = name;
         this.pronunciation = pronunciation;
@@ -39,6 +42,7 @@ public class Graduate {
             this.uuid = Graduate.STEVE_UUID;
         else
             this.uuid = UUID.fromString(uuid);
+        this.timeslot = timeslot;
     }
 
     // this is my skin lol someone please change it
@@ -55,6 +59,7 @@ public class Graduate {
     private ActiveCeremony ceremony;
     private UUID uuid;
     private boolean graduated;
+    private final Timestamp timeslot;
 
     // getters and setters
     public int getId() {
@@ -90,7 +95,11 @@ public class Graduate {
     }
 
     public Player getPlayer() {
-        return (Player) PlayerUtil.getEntity(ceremony.getWorld(), uuid);
+        return (Player) PlayerUtil.getEntity(ceremony.getStageController().getWorld(), uuid);
+    }
+
+    public String getUniversityName() {
+        return universityName;
     }
 
     public boolean isGraduated() {
@@ -112,5 +121,13 @@ public class Graduate {
 
         if (graduated)
             ceremony.signalGraduated(this);
+    }
+
+    public Timestamp getTimeslot() {
+        return timeslot;
+    }
+
+    public Duration getShowDelay() {
+        return Duration.ofMillis(System.currentTimeMillis() - timeslot.getTime());
     }
 }

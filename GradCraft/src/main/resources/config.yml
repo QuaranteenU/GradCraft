@@ -9,3 +9,7 @@ gradTpPoint:
   x: 0
   y: 128
   z: 0
+gradTpExitPoint:
+  x: 1
+  y: 128
+  z: 1

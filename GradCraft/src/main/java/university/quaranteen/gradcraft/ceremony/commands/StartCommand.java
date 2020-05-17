@@ -58,7 +58,7 @@ public class StartCommand implements CommandExecutor {
                 return true;
             }
 
-            ActiveCeremony ceremony = new ActiveCeremony(res.getInt(1), gradWorld, db);
+            ActiveCeremony ceremony = new ActiveCeremony(res.getInt(1), gradWorld, plugin);
             ceremony.setController(p);
             plugin.ceremony = ceremony;
 

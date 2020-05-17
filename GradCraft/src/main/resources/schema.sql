@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS graduates
     uuid          VARCHAR(38),
     isHighSchool  BOOL NOT NULL DEFAULT FALSE,
     graduated     BOOL NOT NULL DEFAULT FALSE,
+    timeslot      TIMESTAMP,
     FOREIGN KEY fk_university (university) REFERENCES universities (id),
     FOREIGN KEY fk_ceremony (ceremony) REFERENCES ceremonies (id)
 ) ENGINE = InnoDB;
