@@ -69,9 +69,7 @@ public class StartCommand implements CommandExecutor {
                     .append(ChatColor.RESET, "")
                     .white("If you're scheduled to graduate during the ")
                     .aqua(res.getString(2))
-                    .white(" ceremony, make your way to the graduation stage and enter ")
-                    .yellow(" /ready")
-                    .white("!")
+                    .white(" ceremony, make your way to the graduation stage now!")
                     .toString()
             );
         } catch (SQLException ex) {

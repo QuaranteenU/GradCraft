@@ -60,7 +60,6 @@ public class GradCraftPlugin extends PluginBase {
         this.getCommand("cerstop").setExecutor(new StopCommand(this));
         this.getCommand("cerstatus").setExecutor(new StatusCommand(this));
         this.getCommand("cerlist").setExecutor(new ListCommand(this));
-        this.getCommand("joinqueue").setExecutor(new JoinQueueCommand(this));
 
     }
 

@@ -70,12 +70,6 @@ spigot {
             permission = 'gc.ceremony.runner'
             permissionMessage = 'You don\'t have permission!'
         }
-        joinqueue {
-            description = 'Join the graduation queue!'
-            usage = '/joinqueue'
-            permission = 'gc.ceremony.graduate'
-            permissionMessage = 'You don\'t have permission!'
-        }
         robes {
             description = 'Get graduation robes!'
             usage = '/robes <red|black|blue>'

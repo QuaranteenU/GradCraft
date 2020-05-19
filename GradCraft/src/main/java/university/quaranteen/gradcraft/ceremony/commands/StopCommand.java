@@ -1,5 +1,6 @@
 package university.quaranteen.gradcraft.ceremony.commands;
 
+import com.bergerkiller.bukkit.common.MessageBuilder;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,6 +15,20 @@ public class StopCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        return false;
+        if (sender != plugin.ceremony.getController()) {
+            sender.sendMessage(new MessageBuilder()
+                    .red("You're not the show runner!")
+                    .toString()
+            );
+            return true;
+        }
+
+        sender.sendMessage(new MessageBuilder()
+                .green("Ceremony #", plugin.ceremony.getId(), " stopped.")
+                .toString()
+        );
+        plugin.ceremony = null;
+
+        return true;
     }
 }
