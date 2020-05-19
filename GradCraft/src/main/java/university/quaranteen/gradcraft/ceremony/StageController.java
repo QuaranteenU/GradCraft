@@ -67,7 +67,7 @@ public class StageController {
         MessageBuilder m = new MessageBuilder()
                 .dark_gray("===== ");
 
-        long delay = g.getShowDelay().toSeconds();
+        long delay = g.getShowDelay().getSeconds();
         if (delay == 0) {
             m.green("On time");
         } else if (delay > 0) {

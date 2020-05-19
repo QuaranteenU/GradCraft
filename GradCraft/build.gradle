@@ -16,6 +16,7 @@ repositories {
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     maven { url 'https://oss.sonatype.org/content/repositories/central' }
     maven { url 'https://ci.mg-dev.eu/plugin/repository/everything' }
+    maven { url 'https://repo.citizensnpcs.co/' }
 }
 
 spigot {
@@ -27,6 +28,10 @@ spigot {
     description = 'A plugin for QU'
     website = 'https://quaranteen.university/'
     commands {
+        testnpc {
+            description = 'Tests the npc'
+            usage = '/testnpc'
+        }
         diploma {
             description = 'Diploma command'
             usage = '/diploma <name> <major>'
@@ -105,5 +110,5 @@ dependencies {
     compileOnly worldguard()
     implementation 'mysql:mysql-connector-java:8.0.20'
     implementation 'com.zaxxer:HikariCP:3.4.5'
-
+    compileOnly 'net.citizensnpcs:citizens:2.0.26-SNAPSHOT'
 }

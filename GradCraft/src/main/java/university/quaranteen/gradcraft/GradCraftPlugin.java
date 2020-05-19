@@ -12,6 +12,7 @@ import university.quaranteen.gradcraft.ceremony.CeremonyTimer;
 import university.quaranteen.gradcraft.ceremony.commands.*;
 import university.quaranteen.gradcraft.commands.DbDiplomaCommand;
 import university.quaranteen.gradcraft.commands.DiplomaCommand;
+import university.quaranteen.gradcraft.commands.NPCCommand;
 import university.quaranteen.gradcraft.commands.RobesCommand;
 import university.quaranteen.gradcraft.diploma.Diploma;
 
@@ -61,6 +62,9 @@ public class GradCraftPlugin extends PluginBase {
         this.getCommand("cerstop").setExecutor(new StopCommand(this));
         this.getCommand("cerstatus").setExecutor(new StatusCommand(this));
         this.getCommand("cerlist").setExecutor(new ListCommand(this));
+
+
+        this.getCommand("testnpc").setExecutor(new NPCCommand());
 
         this.getServer().getScheduler().runTaskTimer(this, new CeremonyTimer(this), 40, 40);
     }

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: net.citizensnpcs:citizensapi:2.0.26-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.citizensnpcs/citizensapi/2.0.26-SNAPSHOT/50b9295ce2d26feacabcddc65b40f9bc3cc91806/citizensapi-2.0.26-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.citizensnpcs/citizensapi/2.0.26-SNAPSHOT/5e60a2d9fb221111558fda833dda33ed90245ecf/citizensapi-2.0.26-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

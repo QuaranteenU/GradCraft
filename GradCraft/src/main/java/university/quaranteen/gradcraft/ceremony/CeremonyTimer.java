@@ -57,7 +57,7 @@ public class CeremonyTimer implements Runnable {
         }
 
         if (initialized && !running ) {
-            log.info("Waiting for start in " + Duration.between(startTime, Instant.now()).toSeconds() + " second(s)");
+            log.info("Waiting for start in " + Duration.between(startTime, Instant.now()).getSeconds() + " second(s)");
             if (Instant.now().isAfter(startTime)) {
                 running = true;
                 gradChanged = true;
