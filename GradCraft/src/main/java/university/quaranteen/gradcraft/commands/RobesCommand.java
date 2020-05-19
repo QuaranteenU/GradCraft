@@ -15,6 +15,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.annotation.Nonnull;
+
 public class RobesCommand implements CommandExecutor {
     public RobesCommand(GradCraftPlugin plugin) {
         this.db = plugin.db;
@@ -25,7 +27,7 @@ public class RobesCommand implements CommandExecutor {
     private final String validWorld;
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage("This command doesn't work from console mode.");
             return true;
