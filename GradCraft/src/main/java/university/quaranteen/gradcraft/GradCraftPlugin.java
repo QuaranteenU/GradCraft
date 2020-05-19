@@ -10,13 +10,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import university.quaranteen.gradcraft.ceremony.ActiveCeremony;
 import university.quaranteen.gradcraft.ceremony.CeremonyTimer;
 import university.quaranteen.gradcraft.ceremony.commands.*;
-import university.quaranteen.gradcraft.commands.DbDiplomaCommand;
-import university.quaranteen.gradcraft.commands.DiplomaCommand;
-import university.quaranteen.gradcraft.commands.NPCCommand;
-import university.quaranteen.gradcraft.commands.RobesCommand;
-import university.quaranteen.gradcraft.diploma.Diploma;
-
-import java.util.Properties;
+import university.quaranteen.gradcraft.citizens.GraduateNPC;
+import university.quaranteen.gradcraft.commands.*;
 
 @Plugin
 public class GradCraftPlugin extends PluginBase {
@@ -25,6 +20,8 @@ public class GradCraftPlugin extends PluginBase {
     public HikariDataSource db;
 
     public ActiveCeremony ceremony;
+
+    public GraduateNPC currentGraduateNPC = null;
 
     @Override
     public int getMinimumLibVersion() {
@@ -64,7 +61,8 @@ public class GradCraftPlugin extends PluginBase {
         this.getCommand("cerlist").setExecutor(new ListCommand(this));
 
 
-        this.getCommand("testnpc").setExecutor(new NPCCommand(this));
+        this.getCommand("spawngrad").setExecutor(new SpawnGraduateCommand(this));
+        this.getCommand("destroygrad").setExecutor(new DestroyGraduateCommand(this));
 
         this.getServer().getScheduler().runTaskTimer(this, new CeremonyTimer(this), 40, 40);
     }

@@ -12,28 +12,26 @@ import university.quaranteen.gradcraft.citizens.GraduateNPC;
 import javax.annotation.Nonnull;
 import java.util.Objects;
 
-public class NPCCommand implements CommandExecutor {
+public class SpawnGraduateCommand implements CommandExecutor {
     private GradCraftPlugin plugin;
 
-    public NPCCommand(GradCraftPlugin plugin) {
+    public SpawnGraduateCommand(GradCraftPlugin plugin) {
         this.plugin = plugin;
     }
 
     @Override
     public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command cmd, @Nonnull String label, @Nonnull String[] args) {
         if (sender instanceof Player) {
-            Player p = (Player) sender;
-            World world = this.plugin.getServer().getWorld(Objects.requireNonNull(plugin.config.getString("gradWorld")));
+            World world = plugin.getServer().getWorld(Objects.requireNonNull(plugin.config.getString("gradWorld")));
             Location tpInLocation = new Location(
                     world,
                     plugin.config.getDouble("gradTpPoint.x"),
                     plugin.config.getDouble("gradTpPoint.y"),
                     plugin.config.getDouble("gradTpPoint.z"));
 
-            GraduateNPC grad = new GraduateNPC();
-            grad.TestMethod(sender, tpInLocation);
-
-            sender.sendMessage("did the thang b");
+            GraduateNPC grad = new GraduateNPC(sender, tpInLocation);
+            plugin.currentGraduateNPC = grad;
+            sender.sendMessage("created graduate npc");
             return true;
         } else {
             sender.sendMessage("you're not a player bucko");
