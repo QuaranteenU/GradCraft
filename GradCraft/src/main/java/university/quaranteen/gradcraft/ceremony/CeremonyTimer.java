@@ -90,7 +90,6 @@ public class CeremonyTimer implements Runnable {
             }
 
             if (gradChanged) {
-                log.info("wakwakwakwakawk");
                 StageController controller = plugin.ceremony.getStageController();
                 controller.forceOutGraduate();
                 plugin.ceremony.setCurrentGraduate(curGraduate);

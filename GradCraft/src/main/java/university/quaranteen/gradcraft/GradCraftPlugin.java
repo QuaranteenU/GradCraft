@@ -64,7 +64,7 @@ public class GradCraftPlugin extends PluginBase {
         this.getCommand("cerlist").setExecutor(new ListCommand(this));
 
 
-        this.getCommand("testnpc").setExecutor(new NPCCommand());
+        this.getCommand("testnpc").setExecutor(new NPCCommand(this));
 
         this.getServer().getScheduler().runTaskTimer(this, new CeremonyTimer(this), 40, 40);
     }
