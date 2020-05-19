@@ -30,6 +30,9 @@ public class SpawnGraduateCommand implements CommandExecutor {
                     plugin.config.getDouble("gradTpPoint.z"));
 
             GraduateNPC grad = new GraduateNPC(sender, tpInLocation);
+            if (plugin.currentGraduateNPC != null) {
+                plugin.currentGraduateNPC.destroy();
+            }
             plugin.currentGraduateNPC = grad;
             sender.sendMessage("created graduate npc");
             return true;

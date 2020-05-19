@@ -41,8 +41,8 @@ public class GraduateNPC {
             throw new CommandException(Messages.INVALID_SPAWN_LOCATION);
         }
 
-        this.npc.spawn(spawnPoint, SpawnReason.CREATE);
         this.npc.addTrait(GraduateTrait.class);
+        this.npc.spawn(spawnPoint, SpawnReason.CREATE);
     }
 
     public void destroy() {
