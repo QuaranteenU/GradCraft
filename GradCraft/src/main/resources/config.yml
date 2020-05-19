@@ -1,6 +1,6 @@
 db:
   username: root
-  password: mysqlpassword
+  password: asdfasdf
   server: jdbc:mysql://localhost:3306/graduation
   driver: com.mysql.jdbc.Driver
 gradWorld: world
