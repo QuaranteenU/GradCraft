@@ -9,6 +9,7 @@ import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.util.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.util.Vector;
 import org.bukkit.World;
 import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.CommandException;
@@ -17,6 +18,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class GraduateNPC {
@@ -24,12 +26,12 @@ public class GraduateNPC {
 
     public GraduateNPC(CommandSender sender, Location spawnPoint) {
         EntityType type = EntityType.PLAYER;
-        this.npc = CitizensAPI.getNPCRegistry().createNPC(type, "Dustin Hoffman");
+        npc = CitizensAPI.getNPCRegistry().createNPC(type, "Dustin Hoffman");
 
-        CommandSenderCreateNPCEvent event = new CommandSenderCreateNPCEvent(sender, this.npc);
+        CommandSenderCreateNPCEvent event = new CommandSenderCreateNPCEvent(sender, npc);
         Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) {
-            this.npc.destroy();
+            npc.destroy();
             String reason = "Couldn't create NPC.";
             if (!event.getCancelReason().isEmpty())
                 reason += " Reason: " + event.getCancelReason();
@@ -37,15 +39,21 @@ public class GraduateNPC {
         }
 
         if (spawnPoint == null) {
-            this.npc.destroy();
+            npc.destroy();
             throw new CommandException(Messages.INVALID_SPAWN_LOCATION);
         }
 
-        this.npc.addTrait(GraduateTrait.class);
-        this.npc.spawn(spawnPoint, SpawnReason.CREATE);
+        Iterable<Vector> path = Arrays.asList(
+                new Vector(spawnPoint.getX() + 3, spawnPoint.getY() + 5, spawnPoint.getZ() + 3),
+                new Vector(spawnPoint.getX() - 3, spawnPoint.getY() - 5, spawnPoint.getZ() - 3),
+                new Vector(spawnPoint.getX(), spawnPoint.getY(), spawnPoint.getZ())
+        );
+        npc.addTrait(GraduateTrait.class);
+        npc.spawn(spawnPoint, SpawnReason.CREATE);
+        npc.getNavigator().setTarget(path);
     }
 
     public void destroy() {
-        this.npc.destroy();
+        npc.destroy();
     }
 }
