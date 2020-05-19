@@ -7,5 +7,13 @@ gradWorld: world
 stageRegion: stage
 gradTpPoint:
   x: 0
-  y: 128
+  y: 67
+  z: 0
+gradTpOutPoint:
+  x: 3
+  y: 67
+  z: 8
+degreeNpcPoint:
+  x: 0
+  y: 67
   z: 0

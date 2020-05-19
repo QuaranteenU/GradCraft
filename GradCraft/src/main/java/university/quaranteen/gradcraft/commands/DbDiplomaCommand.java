@@ -37,6 +37,7 @@ public class DbDiplomaCommand implements CommandExecutor {
                     String major = res.getString(3);
                     player.getInventory().addItem(new Diploma(player, name, major, degreeLevel).createItem());
                 }
+                res.close();
                 c.close();
                 return true;
             } catch (SQLException ex) {

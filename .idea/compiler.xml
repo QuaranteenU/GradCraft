@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ebean/persistence-api/2.2.2/61ce4c1455e1b1b3727da5f50d73e934de884a45/persistence-api-2.2.2.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ebean/querybean-generator/11.39.3/9548115914c80f7dca15c40260002acb56ca6b2e/querybean-generator-11.39.3.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ebean/ebean-annotation/4.10/d1673ce09920a74b6c0426ede0358a8798387817/ebean-annotation-4.10.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ebean/ebean-querybean/11.39.1/ead360bda106bfa238220fd593d16fc682520d5a/ebean-querybean-11.39.1.jar" />
+        </processorPath>
+        <module name="GradCraft.main" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="11" />
+  </component>
+</project>
