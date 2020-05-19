@@ -14,6 +14,7 @@ import com.sk89q.worldguard.protection.regions.RegionContainer;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import university.quaranteen.gradcraft.GradCraftPlugin;
 
 import java.util.List;
@@ -118,7 +119,15 @@ public class StageController {
     }
 
     public void forceOutGraduate() {
-        currentGraduate.getPlayer().teleport(tpOutLocation);
+        if (currentGraduate == null) return;
+
+        Player p = currentGraduate.getPlayer();
+        if (p != null
+                && p.isOnline()
+                && p.getWorld() == world
+                && stageRegion.contains(BukkitAdapter.asBlockVector(p.getLocation()))) {
+            p.teleport(tpOutLocation, PlayerTeleportEvent.TeleportCause.CHORUS_FRUIT);
+        }
         stageRegion.getMembers().removePlayer(currentGraduate.getUuid());
     }
 
@@ -127,7 +136,7 @@ public class StageController {
         if (p != null && p.isOnline()) {
             // player is online, so add them to the stage region and tp them in
             stageRegion.getMembers().addPlayer(currentGraduate.getUuid());
-            p.teleport(tpInLocation);
+            p.teleport(tpInLocation, PlayerTeleportEvent.TeleportCause.CHORUS_FRUIT);
             p.sendMessage(new MessageBuilder()
                     .green("Congratulations! Right click on Professor Steve for your diploma!")
                     .toString());

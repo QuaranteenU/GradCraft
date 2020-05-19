@@ -1,7 +1,6 @@
 package university.quaranteen.gradcraft.ceremony.commands;
 
 import com.bergerkiller.bukkit.common.MessageBuilder;
-import com.mysql.cj.x.protobuf.MysqlxPrepare;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -39,47 +38,51 @@ public class StatusCommand implements CommandExecutor {
         try {
             c = plugin.db.getConnection();
 
-            PreparedStatement stmt = c.prepareStatement("select count(*) from graduates where ceremony = ?");
+            PreparedStatement stmt = c.prepareStatement("select count(*), min(timeslot), max(timeslot) from graduates where ceremony = ?");
             stmt.setInt(1, plugin.ceremony.getId());
             res = stmt.executeQuery();
             if (res.next()) {
                 totalGrads = res.getLong(1);
-            }
-
-            stmt = c.prepareStatement("select count(*), min(timeslot), max(timeslot) from graduates where not graduated and ceremony = ?");
-            stmt.setInt(1, plugin.ceremony.getId());
-            res = stmt.executeQuery();
-            if (res.next()) {
-                gradsLeft = res.getLong(1);
                 startTime = res.getTimestamp(2);
                 finishTime = res.getTimestamp(3);
             } else {
                 startTime = Timestamp.from(Instant.now());
                 finishTime = Timestamp.from(Instant.now());
             }
+            res.close();
 
-            Graduate g = plugin.ceremony.getCurrentGraduate();
+            stmt = c.prepareStatement("select count(*) from graduates where not graduated and ceremony = ?");
+            stmt.setInt(1, plugin.ceremony.getId());
+            res = stmt.executeQuery();
+            if (res.next()) {
+                gradsLeft = res.getLong(1);
+            }
+            res.close();
+
+            /*Graduate g = plugin.ceremony.getCurrentGraduate();
             if (g == null && startTime != null) {
                 delay = Duration.between((Temporal) startTime, Instant.now());
-            } else {
+            } else if (g != null) {
                 assert g != null;
                 delay = g.getShowDelay();
-            }
+            }*/
 
             sender.sendMessage(new MessageBuilder()
                     .green("Ceremony #", plugin.ceremony.getId(), " in progress")
                     .newLine()
-                    .white("Controller: ", plugin.ceremony.getController().getName())
+                    .white("Controller: ", plugin.ceremony.getShowRunner().getName())
                     .newLine()
                     .green(gradsLeft, "/", totalGrads, " remaining")
                     .newLine()
                     .green("Estimated finish time: ", finishTime)
                     .newLine()
-                    .green("Current delay: ", delay.toString())
-                    .newLine()
+                    //.green("Current delay: ", delay.toString())
+                    //.newLine()
                     .green("Current UTC time: ", Instant.now().atZone(ZoneId.of("UTC")).toLocalDateTime())
                     .toString()
             );
+
+            c.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

@@ -30,7 +30,7 @@ public class ClaimCommand implements CommandExecutor {
             );
             return true;
         }
-        if (plugin.ceremony.getController() == sender) {
+        if (plugin.ceremony.getShowRunner() == sender) {
             sender.sendMessage(new MessageBuilder()
                     .red("You're already the show runner!")
                     .toString()

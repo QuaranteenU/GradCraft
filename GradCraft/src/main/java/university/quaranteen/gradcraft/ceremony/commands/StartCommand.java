@@ -55,6 +55,8 @@ public class StartCommand implements CommandExecutor {
                     .white("/cerlist ")
                     .dark_red("for a list.")
                     .toString());
+                res.close();
+                c.close();
                 return true;
             }
 
@@ -72,6 +74,8 @@ public class StartCommand implements CommandExecutor {
                     .white(" ceremony, make your way to the graduation stage now!")
                     .toString()
             );
+            res.close();
+            c.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         } catch (NumberFormatException ex) {

@@ -1,7 +1,6 @@
 package university.quaranteen.gradcraft.ceremony.commands;
 
 import com.bergerkiller.bukkit.common.MessageBuilder;
-import com.bergerkiller.bukkit.common.utils.WorldUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -9,10 +8,6 @@ import org.bukkit.entity.Player;
 import university.quaranteen.gradcraft.GradCraftPlugin;
 import university.quaranteen.gradcraft.ceremony.Graduate;
 import university.quaranteen.gradcraft.ceremony.StageController;
-
-import java.time.Duration;
-import java.time.Instant;
-import java.util.Collection;
 
 public class NextCommand implements CommandExecutor {
     public NextCommand(GradCraftPlugin plugin) {
@@ -30,7 +25,7 @@ public class NextCommand implements CommandExecutor {
             );
             return true;
         }
-        if (plugin.ceremony.getController() != sender) {
+        if (plugin.ceremony.getShowRunner() != sender) {
             sender.sendMessage(new MessageBuilder()
                     .red("You're not the show runner!")
                     .toString()
@@ -44,10 +39,16 @@ public class NextCommand implements CommandExecutor {
 
         // todo: refactor this to allow automatic advancement
         StageController controller = plugin.ceremony.getStageController();
+        plugin.ceremony.signalGraduated(plugin.ceremony.getCurrentGraduate());
         controller.forceOutGraduate();
-        plugin.ceremony.nextGraduate();
+        Graduate g = plugin.ceremony.getNextGraduate();
+        if (g == null) {
+            sender.sendMessage(new MessageBuilder().red("This ceremony is complete!").toString());
+            return true;
+        }
+        plugin.ceremony.setCurrentGraduate(plugin.ceremony.getNextGraduate());
         controller.teleportInGraduate();
-        controller.notifyShowRunner(plugin.ceremony.getController());
+        controller.notifyShowRunner(plugin.ceremony.getShowRunner());
         controller.notifySpectators();
 
         return true;

@@ -15,7 +15,7 @@ public class StopCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender != plugin.ceremony.getController()) {
+        if (sender != plugin.ceremony.getShowRunner()) {
             sender.sendMessage(new MessageBuilder()
                     .red("You're not the show runner!")
                     .toString()

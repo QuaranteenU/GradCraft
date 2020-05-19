@@ -95,6 +95,8 @@ public class Graduate {
     }
 
     public Player getPlayer() {
+        if (uuid == null)
+            return null;
         return (Player) PlayerUtil.getEntity(ceremony.getStageController().getWorld(), uuid);
     }
 

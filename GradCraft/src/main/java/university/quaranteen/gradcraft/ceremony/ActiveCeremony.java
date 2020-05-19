@@ -37,7 +37,7 @@ public class ActiveCeremony {
         return stageController.getWorld();
     }
 
-    public Player getController() {
+    public Player getShowRunner() {
         return controller;
     }
 
@@ -47,11 +47,16 @@ public class ActiveCeremony {
         return currentGraduate;
     }
 
+    public void setCurrentGraduate(Graduate g) {
+        this.currentGraduate = g;
+        this.stageController.nextGraduate(g);
+    }
+
     public void setController(Player player) {
         this.controller = player;
     }
 
-    public Graduate nextGraduate() {
+    public Graduate getNextGraduate() {
         Connection c;
         ResultSet res;
         try {
@@ -83,9 +88,6 @@ public class ActiveCeremony {
             res.close();
             c.close();
 
-            this.currentGraduate = g;
-            this.stageController.nextGraduate(g);
-
             return g;
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -101,6 +103,7 @@ public class ActiveCeremony {
             PreparedStatement stmt = c.prepareStatement("UPDATE graduates SET graduated = 1 WHERE id = ?;");
             stmt.setInt(1, graduate.getId());
             stmt.execute();
+            c.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

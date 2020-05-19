@@ -8,6 +8,7 @@ import kr.entree.spigradle.Plugin;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import university.quaranteen.gradcraft.ceremony.ActiveCeremony;
+import university.quaranteen.gradcraft.ceremony.CeremonyTimer;
 import university.quaranteen.gradcraft.ceremony.commands.*;
 import university.quaranteen.gradcraft.commands.DbDiplomaCommand;
 import university.quaranteen.gradcraft.commands.DiplomaCommand;
@@ -61,6 +62,7 @@ public class GradCraftPlugin extends PluginBase {
         this.getCommand("cerstatus").setExecutor(new StatusCommand(this));
         this.getCommand("cerlist").setExecutor(new ListCommand(this));
 
+        this.getServer().getScheduler().runTaskTimer(this, new CeremonyTimer(this), 40, 40);
     }
 
     @Override
