@@ -13,12 +13,14 @@ import university.quaranteen.gradcraft.ceremony.CeremonyTimer;
 import university.quaranteen.gradcraft.ceremony.commands.*;
 import university.quaranteen.gradcraft.commands.DbDiplomaCommand;
 import university.quaranteen.gradcraft.commands.DiplomaCommand;
-import university.quaranteen.gradcraft.commands.NPCCommand;
 import university.quaranteen.gradcraft.commands.RobesCommand;
 import university.quaranteen.gradcraft.diploma.Diploma;
 import university.quaranteen.gradcraft.nametags.NametagListener;
+import university.quaranteen.gradcraft.citizens.*;
+import university.quaranteen.gradcraft.commands.*;
 
-import java.util.Properties;
+import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.trait.TraitInfo;
 
 @Plugin
 public class GradCraftPlugin extends PluginBase {
@@ -29,6 +31,7 @@ public class GradCraftPlugin extends PluginBase {
     public ActiveCeremony ceremony;
 
     public BukkitTask ceremonyTimerTask;
+    public GraduateNPC currentGraduateNPC = null;
 
     @Override
     public int getMinimumLibVersion() {
@@ -68,11 +71,16 @@ public class GradCraftPlugin extends PluginBase {
         this.getCommand("cerlist").setExecutor(new ListCommand(this));
 
 
-        this.getCommand("testnpc").setExecutor(new NPCCommand());
+        this.getCommand("spawngrad").setExecutor(new SpawnGraduateCommand(this));
+        this.getCommand("destroygrad").setExecutor(new DestroyGraduateCommand(this));
 
         this.getServer().getScheduler().runTaskTimer(this, new CeremonyTimer(this), 40, 40);
 
         this.register(new NametagListener(this));
+
+        // Register your trait with Citizens
+        CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(GraduateTrait.class).withName("graduate"));
+        CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(ProfessorTrait.class).withName("professor"));
     }
 
     @Override
