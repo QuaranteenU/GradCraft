@@ -7,6 +7,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import kr.entree.spigradle.Plugin;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.scheduler.BukkitTask;
 import university.quaranteen.gradcraft.ceremony.ActiveCeremony;
 import university.quaranteen.gradcraft.ceremony.CeremonyTimer;
 import university.quaranteen.gradcraft.ceremony.commands.*;
@@ -15,6 +16,7 @@ import university.quaranteen.gradcraft.commands.DiplomaCommand;
 import university.quaranteen.gradcraft.commands.NPCCommand;
 import university.quaranteen.gradcraft.commands.RobesCommand;
 import university.quaranteen.gradcraft.diploma.Diploma;
+import university.quaranteen.gradcraft.nametags.NametagListener;
 
 import java.util.Properties;
 
@@ -25,6 +27,8 @@ public class GradCraftPlugin extends PluginBase {
     public HikariDataSource db;
 
     public ActiveCeremony ceremony;
+
+    public BukkitTask ceremonyTimerTask;
 
     @Override
     public int getMinimumLibVersion() {
@@ -67,11 +71,17 @@ public class GradCraftPlugin extends PluginBase {
         this.getCommand("testnpc").setExecutor(new NPCCommand());
 
         this.getServer().getScheduler().runTaskTimer(this, new CeremonyTimer(this), 40, 40);
+
+        this.register(new NametagListener(this));
     }
 
     @Override
     public void disable() {
         getLogger().info("GradCraft disabled!");
+        if (ceremonyTimerTask != null)
+            this.getServer().getScheduler().cancelTask(ceremonyTimerTask.getTaskId());
+        if (db != null)
+            db.close();
     }
 
     @Override
