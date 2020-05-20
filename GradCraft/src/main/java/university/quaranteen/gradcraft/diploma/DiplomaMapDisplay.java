@@ -21,7 +21,8 @@ public class DiplomaMapDisplay extends MapDisplay {
     private void renderDiploma() {
         this.getLayer(1).clear();
         CommonTagCompound mapData = ItemUtil.getMetaTag(this.getMapItem());
-        this.getLayer(1).draw(MapFont.MINECRAFT, 10, 40, MapColorPalette.COLOR_BLACK, mapData.getValue(Diploma.DIPLOMA_NAME_FIELD, String.class));
-        this.getLayer(1).draw(MapFont.MINECRAFT, 10, 60, MapColorPalette.COLOR_BLACK, mapData.getValue(Diploma.DIPLOMA_MAJOR_FIELD, String.class));
+        this.getLayer(1).setAlignment(MapFont.Alignment.MIDDLE);
+        this.getLayer(1).draw(MapFont.MINECRAFT, 64, 40, MapColorPalette.COLOR_BLACK, mapData.getValue(Diploma.DIPLOMA_NAME_FIELD, String.class));
+        this.getLayer(1).draw(MapFont.MINECRAFT, 64, 60, MapColorPalette.COLOR_BLACK, mapData.getValue(Diploma.DIPLOMA_MAJOR_FIELD, String.class));
     }
 }
