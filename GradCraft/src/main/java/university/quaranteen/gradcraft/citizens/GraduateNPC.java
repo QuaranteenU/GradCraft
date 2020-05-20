@@ -51,17 +51,6 @@ public class GraduateNPC {
 
         npc.addTrait(GraduateTrait.class);
         npc.spawn(spawnPoint, SpawnReason.CREATE);
-
-        Iterable<Location> path = Arrays.asList(
-            new Location(spawnPoint.getWorld(), spawnPoint.getX() + 3, spawnPoint.getY() + 5, spawnPoint.getZ() + 3),
-            new Location(spawnPoint.getWorld(), spawnPoint.getX() - 3, spawnPoint.getY() - 5, spawnPoint.getZ() - 3),
-            new Location(spawnPoint.getWorld(), spawnPoint.getX(), spawnPoint.getY(), spawnPoint.getZ())
-        );
-        Location test = new Location(spawnPoint.getWorld(), spawnPoint.getX() + 3, spawnPoint.getY() + 5, spawnPoint.getZ() + 30);
-        Navigator npcNav = npc.getNavigator();
-        npcNav.getLocalParameters().speedModifier(.5f);
-        npcNav.setTarget(test);
-        npcNav.getLocalParameters().addSingleUseCallback(cancelReason -> log.info("Finished nav"));
     }
 
     public void destroy() {
