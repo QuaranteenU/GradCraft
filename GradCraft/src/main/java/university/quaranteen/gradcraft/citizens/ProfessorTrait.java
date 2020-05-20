@@ -3,13 +3,17 @@ package university.quaranteen.gradcraft.citizens;
 import net.citizensnpcs.api.event.NPCClickEvent;
 import net.citizensnpcs.api.trait.Trait;
 import net.citizensnpcs.api.trait.trait.Equipment;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import university.quaranteen.gradcraft.GradCraftPlugin;
+
+import java.util.Objects;
 
 public class ProfessorTrait extends Trait {
     private final GradCraftPlugin plugin;
@@ -36,6 +40,13 @@ public class ProfessorTrait extends Trait {
     @Override
     public void onSpawn() {
         setEquipment();
+        World world = plugin.getServer().getWorld(Objects.requireNonNull(plugin.config.getString("gradWorld")));
+        Location facePoint = new Location(
+                world,
+                plugin.config.getDouble("gradFacePoint.x"),
+                plugin.config.getDouble("gradFacePoint.y"),
+                plugin.config.getDouble("gradFacePoint.z"));
+        npc.faceLocation(facePoint);
     }
 
     public void setEquipment() {

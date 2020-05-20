@@ -17,6 +17,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import university.quaranteen.gradcraft.GradCraftPlugin;
 import university.quaranteen.gradcraft.citizens.GraduateNPC;
+import university.quaranteen.gradcraft.citizens.ProfessorNPC;
 
 import java.util.List;
 import java.util.Objects;
@@ -27,12 +28,13 @@ public class StageController {
     private final World world;
     private Graduate currentGraduate;
     private GraduateNPC currentGraduateNPC;
-    private GraduateNPC professorNPC;
+    private ProfessorNPC professorNPC;
     private final RegionContainer wgRegionContainer;
     private final RegionManager wgRegionManager;
     private final ProtectedRegion stageRegion;
     private final Location tpInLocation;
     private final Location tpOutLocation;
+    private final Location professorLocation;
 
     public StageController(World gradWorld, GradCraftPlugin plugin) {
         this.world = gradWorld;
@@ -60,6 +62,23 @@ public class StageController {
                 plugin.config.getDouble("gradTpOutPoint.x"),
                 plugin.config.getDouble("gradTpOutPoint.y"),
                 plugin.config.getDouble("gradTpOutPoint.z"));
+
+        professorLocation = new Location(
+                world,
+                plugin.config.getDouble("degreeNpcPoint.x"),
+                plugin.config.getDouble("degreeNpcPoint.y"),
+                plugin.config.getDouble("degreeNpcPoint.z"));
+    }
+
+    public void startCeremony() {
+        if (professorNPC != null) {
+            professorNPC = new ProfessorNPC(professorLocation);
+        }
+    }
+
+    public void stopCeremony() {
+        if (professorNPC != null) professorNPC.destroy();
+        if (currentGraduateNPC != null) currentGraduateNPC.destroy();
     }
 
     public void nextGraduate(Graduate g) {
@@ -106,7 +125,7 @@ public class StageController {
 
     public void notifySpectators() {
         List<Player> players = this.world.getPlayers();
-        Title t = Title.builder().stay(5)
+        Title t = Title.builder().stay(60)
                 .title(new MessageBuilder()
                         .aqua(currentGraduate.getName())
                         .toString())

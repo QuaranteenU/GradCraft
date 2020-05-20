@@ -42,6 +42,7 @@ public class CeremonyTimer implements Runnable {
             if (curGraduate == null) {
                 curGraduate = plugin.ceremony.getNextGraduate();
                 plugin.ceremony.setCurrentGraduate(curGraduate);
+                plugin.ceremony.getStageController().startCeremony();
             } else
                 curGraduate = plugin.ceremony.getCurrentGraduate();
             log.info("Initialized graduate w/ " + (curGraduate == null ? "null" : curGraduate.getName()));
@@ -85,6 +86,7 @@ public class CeremonyTimer implements Runnable {
                     if (curGraduate != null) gradChanged = true;
                 } else if (nextGraduate == null) {
                     gradChanged = false;
+                    plugin.ceremony.getStageController().stopCeremony();
                     plugin.ceremony = null;
                 }
             }

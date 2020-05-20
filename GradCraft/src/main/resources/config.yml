@@ -13,6 +13,18 @@ gradTpOutPoint:
   x: 3
   y: 67
   z: 8
+gradFacePoint:
+  x: 3
+  y: 67
+  z: 8
+gradCenterPoint:
+  x: 95
+  y: 92
+  z: 82
+gradEndPoint:
+  x: 120
+  y: 92
+  z: 96
 degreeNpcPoint:
   x: 0
   y: 67

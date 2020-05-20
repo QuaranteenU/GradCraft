@@ -61,7 +61,6 @@ public class GraduateNPC {
 
 
         Bukkit.getScheduler().runTaskAsynchronously(CitizensAPI.getPlugin(), () -> {
-            DataOutputStream out = null;
             BufferedReader reader = null;
             try {
                 URL target = new URL("https://api.mineskin.org/generate/user/" + grad.getUuid().toString());

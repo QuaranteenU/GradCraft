@@ -1,5 +1,6 @@
 package university.quaranteen.gradcraft.citizens;
 
+import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.ai.Navigator;
 import net.citizensnpcs.api.ai.event.CancelReason;
 import net.citizensnpcs.api.ai.event.NavigationBeginEvent;
@@ -8,6 +9,7 @@ import net.citizensnpcs.api.ai.event.NavigatorCallback;
 import net.citizensnpcs.api.trait.Trait;
 import net.citizensnpcs.api.trait.trait.Equipment;
 import net.citizensnpcs.nms.v1_11_R1.entity.EntityHumanNPC;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -23,6 +25,9 @@ import java.util.Objects;
 
 public class GraduateTrait extends Trait {
     private final GradCraftPlugin plugin;
+    private boolean hasDiploma = false;
+    private boolean reachedCenter = false;
+    private boolean reachedEnd = false;
 
     public GraduateTrait() {
         super("graduate");
@@ -34,42 +39,54 @@ public class GraduateTrait extends Trait {
         setEquipment();
 
         World world = plugin.getServer().getWorld(Objects.requireNonNull(plugin.config.getString("gradWorld")));
-        Location test = new Location(
-                world,
-                plugin.config.getDouble("gradTpPoint.x"),
-                plugin.config.getDouble("gradTpPoint.y"),
-                plugin.config.getDouble("gradTpPoint.z"));
         Navigator npcNav = npc.getNavigator();
-        //npcNav.getLocalParameters().range((float) 100);
         npcNav.getLocalParameters().useNewPathfinder(true);
-        Iterable<Vector> path = Arrays.asList(
-                new Vector(test.getX(),test.getY(),test.getZ()+10),
-                new Vector(test.getX(),test.getY(),test.getZ()-5)
-        );
-        npcNav.setTarget(path);
-    }
-
-    @EventHandler
-    public void onNavigationStart(NavigationBeginEvent event) {
-        plugin.getLogger().info(npc.getName() + " started path");
+        npcNav.getLocalParameters().range((float) 100);
+        Location lectern = new Location(
+                world,
+                plugin.config.getDouble("gradCenterPoint.x"),
+                plugin.config.getDouble("gradCenterPoint.y"),
+                plugin.config.getDouble("gradCenterPoint.z"));
+        npcNav.setTarget(lectern);
     }
 
     @EventHandler
     public void onNavigationEnd(NavigationCompleteEvent event) {
-        plugin.getLogger().info(npc.getName() + " finished path");
-        Navigator npcNav = npc.getNavigator();
-        npcNav.getLocalParameters().useNewPathfinder(true);
-        World world = plugin.getServer().getWorld(Objects.requireNonNull(plugin.config.getString("gradWorld")));
-        Location test = new Location(
-                world,
-                plugin.config.getDouble("gradTpPoint.x"),
-                plugin.config.getDouble("gradTpPoint.y"),
-                plugin.config.getDouble("gradTpPoint.z"));
-        Iterable<Vector> path = Arrays.asList(
-                new Vector(test.getX(),test.getY(),test.getZ()+10),
-                new Vector(test.getX(),test.getY(),test.getZ()-5)
-        );
-        npcNav.setTarget(path);
+        if (!reachedCenter) {
+            reachedCenter = true;
+
+            World world = plugin.getServer().getWorld(Objects.requireNonNull(plugin.config.getString("gradWorld")));
+            Location facePoint = new Location(
+                    world,
+                    plugin.config.getDouble("gradFacePoint.x"),
+                    plugin.config.getDouble("gradFacePoint.y"),
+                    plugin.config.getDouble("gradFacePoint.z"));
+            npc.faceLocation(facePoint);
+
+            if (!hasDiploma) {
+                npc.getTrait(Equipment.class).set(Equipment.EquipmentSlot.HAND, new ItemStack(Material.FILLED_MAP));
+                hasDiploma = true;
+            }
+
+            npc.getEntity().setVelocity(npc.getEntity().getVelocity().add(new Vector(0,0.4,0)));
+
+            Bukkit.getScheduler().scheduleSyncDelayedTask(CitizensAPI.getPlugin(), () -> {
+                Navigator npcNav = npc.getNavigator();
+                npcNav.getLocalParameters().useNewPathfinder(true);
+                npcNav.getLocalParameters().range((float) 100);
+                Location endPoint = new Location(
+                        world,
+                        plugin.config.getDouble("gradEndPoint.x"),
+                        plugin.config.getDouble("gradEndPoint.y"),
+                        plugin.config.getDouble("gradEndPoint.z"));
+                npcNav.setTarget(endPoint);
+            }, 80);
+        } else if (!reachedEnd) {
+            reachedEnd = true;
+            Bukkit.getScheduler().scheduleSyncDelayedTask(CitizensAPI.getPlugin(), () -> {
+                npc.despawn();
+            }, 10);
+        }
     }
 
     public void setEquipment() {
