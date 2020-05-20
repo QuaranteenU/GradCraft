@@ -50,7 +50,7 @@ public class GradCraftPlugin extends PluginBase {
         dbconfig.setJdbcUrl(config.getString("db.server", "jdbc:mysql://localhost:3306/gradcraft"));
         dbconfig.setUsername(config.getString("db.username", "root"));
         dbconfig.setPassword(config.getString("db.password", "asdfasdf"));
-        dbconfig.addDataSourceProperty("characterEncoding", "utf8mb4");
+        dbconfig.addDataSourceProperty("characterEncoding", "UTF-8");
         dbconfig.addDataSourceProperty("useUnicode", "true");
         dbconfig.setPoolName("gradcraft");
         //dbconfig.setDataSourceClassName(config.getString("db.datasource", "com.mysql.cj.jdbc.MysqlDataSource"));
