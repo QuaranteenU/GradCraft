@@ -14,6 +14,7 @@ import university.quaranteen.gradcraft.commands.DbDiplomaCommand;
 import university.quaranteen.gradcraft.commands.DiplomaCommand;
 import university.quaranteen.gradcraft.commands.RobesCommand;
 import university.quaranteen.gradcraft.diploma.Diploma;
+import university.quaranteen.gradcraft.nametags.NametagListener;
 
 import java.util.Properties;
 
@@ -63,6 +64,8 @@ public class GradCraftPlugin extends PluginBase {
         this.getCommand("cerlist").setExecutor(new ListCommand(this));
 
         this.getServer().getScheduler().runTaskTimer(this, new CeremonyTimer(this), 40, 40);
+
+        this.register(new NametagListener(this));
     }
 
     @Override
