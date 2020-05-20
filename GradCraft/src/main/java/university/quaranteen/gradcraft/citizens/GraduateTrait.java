@@ -2,6 +2,8 @@ package university.quaranteen.gradcraft.citizens;
 
 import net.citizensnpcs.api.ai.Navigator;
 import net.citizensnpcs.api.ai.event.CancelReason;
+import net.citizensnpcs.api.ai.event.NavigationBeginEvent;
+import net.citizensnpcs.api.ai.event.NavigationCompleteEvent;
 import net.citizensnpcs.api.ai.event.NavigatorCallback;
 import net.citizensnpcs.api.trait.Trait;
 import net.citizensnpcs.api.trait.trait.Equipment;
@@ -9,6 +11,7 @@ import net.citizensnpcs.nms.v1_11_R1.entity.EntityHumanNPC;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.event.EventHandler;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
@@ -44,9 +47,29 @@ public class GraduateTrait extends Trait {
                 new Vector(test.getX(),test.getY(),test.getZ()-5)
         );
         npcNav.setTarget(path);
-        npcNav.getLocalParameters().addSingleUseCallback(cancelReason -> {
-            npcNav.setTarget(path);
-        });
+    }
+
+    @EventHandler
+    public void onNavigationStart(NavigationBeginEvent event) {
+        plugin.getLogger().info(npc.getName() + " started path");
+    }
+
+    @EventHandler
+    public void onNavigationEnd(NavigationCompleteEvent event) {
+        plugin.getLogger().info(npc.getName() + " finished path");
+        Navigator npcNav = npc.getNavigator();
+        npcNav.getLocalParameters().useNewPathfinder(true);
+        World world = plugin.getServer().getWorld(Objects.requireNonNull(plugin.config.getString("gradWorld")));
+        Location test = new Location(
+                world,
+                plugin.config.getDouble("gradTpPoint.x"),
+                plugin.config.getDouble("gradTpPoint.y"),
+                plugin.config.getDouble("gradTpPoint.z"));
+        Iterable<Vector> path = Arrays.asList(
+                new Vector(test.getX(),test.getY(),test.getZ()+10),
+                new Vector(test.getX(),test.getY(),test.getZ()-5)
+        );
+        npcNav.setTarget(path);
     }
 
     public void setEquipment() {
