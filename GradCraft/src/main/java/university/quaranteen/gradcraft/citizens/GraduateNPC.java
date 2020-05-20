@@ -1,6 +1,9 @@
 package university.quaranteen.gradcraft.citizens;
 
 import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.ai.Navigator;
+import net.citizensnpcs.api.ai.event.CancelReason;
+import net.citizensnpcs.api.ai.event.NavigatorCallback;
 import net.citizensnpcs.api.command.CommandContext;
 import net.citizensnpcs.api.event.CommandSenderCreateNPCEvent;
 import net.citizensnpcs.api.event.PlayerCreateNPCEvent;
@@ -20,11 +23,14 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 public class GraduateNPC {
     private NPC npc;
+    private Logger log;
 
-    public GraduateNPC(CommandSender sender, Location spawnPoint) {
+    public GraduateNPC(CommandSender sender, Location spawnPoint, Logger log) {
+        this.log = log;
         EntityType type = EntityType.PLAYER;
         npc = CitizensAPI.getNPCRegistry().createNPC(type, "Dustin Hoffman");
 
@@ -43,14 +49,19 @@ public class GraduateNPC {
             throw new CommandException(Messages.INVALID_SPAWN_LOCATION);
         }
 
-        Iterable<Vector> path = Arrays.asList(
-                new Vector(spawnPoint.getX() + 3, spawnPoint.getY() + 5, spawnPoint.getZ() + 3),
-                new Vector(spawnPoint.getX() - 3, spawnPoint.getY() - 5, spawnPoint.getZ() - 3),
-                new Vector(spawnPoint.getX(), spawnPoint.getY(), spawnPoint.getZ())
-        );
         npc.addTrait(GraduateTrait.class);
         npc.spawn(spawnPoint, SpawnReason.CREATE);
-        npc.getNavigator().setTarget(path);
+
+        Iterable<Location> path = Arrays.asList(
+            new Location(spawnPoint.getWorld(), spawnPoint.getX() + 3, spawnPoint.getY() + 5, spawnPoint.getZ() + 3),
+            new Location(spawnPoint.getWorld(), spawnPoint.getX() - 3, spawnPoint.getY() - 5, spawnPoint.getZ() - 3),
+            new Location(spawnPoint.getWorld(), spawnPoint.getX(), spawnPoint.getY(), spawnPoint.getZ())
+        );
+        Location test = new Location(spawnPoint.getWorld(), spawnPoint.getX() + 3, spawnPoint.getY() + 5, spawnPoint.getZ() + 30);
+        Navigator npcNav = npc.getNavigator();
+        npcNav.getLocalParameters().speedModifier(.5f);
+        npcNav.setTarget(test);
+        npcNav.getLocalParameters().addSingleUseCallback(cancelReason -> log.info("Finished nav"));
     }
 
     public void destroy() {

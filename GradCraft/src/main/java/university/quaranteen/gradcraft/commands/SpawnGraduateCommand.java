@@ -11,6 +11,7 @@ import university.quaranteen.gradcraft.citizens.GraduateNPC;
 
 import javax.annotation.Nonnull;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 public class SpawnGraduateCommand implements CommandExecutor {
     private GradCraftPlugin plugin;
@@ -29,7 +30,8 @@ public class SpawnGraduateCommand implements CommandExecutor {
                     plugin.config.getDouble("gradTpPoint.y"),
                     plugin.config.getDouble("gradTpPoint.z"));
 
-            GraduateNPC grad = new GraduateNPC(sender, tpInLocation);
+            Logger log = plugin.getLogger();
+            GraduateNPC grad = new GraduateNPC(sender, tpInLocation, log);
             if (plugin.currentGraduateNPC != null) {
                 plugin.currentGraduateNPC.destroy();
             }
