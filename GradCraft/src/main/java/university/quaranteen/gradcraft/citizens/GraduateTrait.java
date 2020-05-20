@@ -1,6 +1,8 @@
 package university.quaranteen.gradcraft.citizens;
 
 import net.citizensnpcs.api.ai.Navigator;
+import net.citizensnpcs.api.ai.event.CancelReason;
+import net.citizensnpcs.api.ai.event.NavigatorCallback;
 import net.citizensnpcs.api.trait.Trait;
 import net.citizensnpcs.api.trait.trait.Equipment;
 import net.citizensnpcs.nms.v1_11_R1.entity.EntityHumanNPC;
@@ -42,7 +44,9 @@ public class GraduateTrait extends Trait {
                 new Vector(test.getX(),test.getY(),test.getZ()-5)
         );
         npcNav.setTarget(path);
-        addSingleUseCallback(NavigatorCallback callback)
+        npcNav.getLocalParameters().addSingleUseCallback(cancelReason -> {
+            npcNav.setTarget(path);
+        });
     }
 
     public void setEquipment() {
