@@ -10,8 +10,11 @@ import org.bukkit.configuration.file.FileConfiguration;
 import university.quaranteen.gradcraft.ceremony.ActiveCeremony;
 import university.quaranteen.gradcraft.ceremony.CeremonyTimer;
 import university.quaranteen.gradcraft.ceremony.commands.*;
-import university.quaranteen.gradcraft.citizens.GraduateNPC;
+import university.quaranteen.gradcraft.citizens.*;
 import university.quaranteen.gradcraft.commands.*;
+
+import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.trait.TraitInfo;
 
 @Plugin
 public class GradCraftPlugin extends PluginBase {
@@ -65,6 +68,10 @@ public class GradCraftPlugin extends PluginBase {
         this.getCommand("destroygrad").setExecutor(new DestroyGraduateCommand(this));
 
         this.getServer().getScheduler().runTaskTimer(this, new CeremonyTimer(this), 40, 40);
+
+        // Register your trait with Citizens
+        CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(GraduateTrait.class).withName("graduate"));
+        CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(ProfessorTrait.class).withName("professor"));
     }
 
     @Override
