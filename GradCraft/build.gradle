@@ -28,14 +28,6 @@ spigot {
     description = 'A plugin for QU'
     website = 'https://quaranteen.university/'
     commands {
-        spawngrad {
-            description = 'Spawns graduate npc'
-            usage = '/spawngrad'
-        }
-        destroygrad {
-            description = 'Destroys graduate npc'
-            usage = '/destroygrad'
-        }
         diploma {
             description = 'Diploma command'
             usage = '/diploma <name> <major>'

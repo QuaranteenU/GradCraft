@@ -16,13 +16,18 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import university.quaranteen.gradcraft.GradCraftPlugin;
+import university.quaranteen.gradcraft.citizens.GraduateNPC;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 public class StageController {
     private final World world;
     private Graduate currentGraduate;
+    private GraduateNPC currentGraduateNPC;
+    private GraduateNPC professorNPC;
     private final RegionContainer wgRegionContainer;
     private final RegionManager wgRegionManager;
     private final ProtectedRegion stageRegion;
@@ -120,6 +125,10 @@ public class StageController {
 
     public void forceOutGraduate() {
         if (currentGraduate == null) return;
+        if (currentGraduateNPC != null) {
+            currentGraduateNPC.destroy();
+            currentGraduateNPC = null;
+        }
 
         Player p = currentGraduate.getPlayer();
         if (p != null
@@ -128,7 +137,7 @@ public class StageController {
                 && stageRegion.contains(BukkitAdapter.asBlockVector(p.getLocation()))) {
             p.teleport(tpOutLocation, PlayerTeleportEvent.TeleportCause.CHORUS_FRUIT);
         }
-        stageRegion.getMembers().removePlayer(currentGraduate.getUuid());
+        if (currentGraduate.getUuid() != null) stageRegion.getMembers().removePlayer(currentGraduate.getUuid());
     }
 
     public void teleportInGraduate() {
@@ -141,7 +150,13 @@ public class StageController {
                     .green("Congratulations! Right click on Professor Steve for your diploma!")
                     .toString());
         } else {
-            //TODO: handling for NPC
+            // use NPC
+            if (currentGraduateNPC != null) {
+                currentGraduateNPC.destroy();
+                currentGraduateNPC = null;
+            }
+            GraduateNPC grad = new GraduateNPC(tpInLocation, currentGraduate);
+            currentGraduateNPC = grad;
         }
     }
 

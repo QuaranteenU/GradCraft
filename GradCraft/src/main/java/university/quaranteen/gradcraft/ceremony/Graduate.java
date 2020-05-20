@@ -20,9 +20,7 @@ public class Graduate {
         this.universityName = universityName;
         this.graduated = graduated;
         this.ceremony = ceremony;
-        if (uuid == null)
-            this.uuid = Graduate.STEVE_UUID;
-        else
+        if (uuid != null)
             this.uuid = uuid;
         this.timeslot = timeslot;
     }
@@ -38,15 +36,10 @@ public class Graduate {
         this.universityName = universityName;
         this.graduated = graduated;
         this.ceremony = ceremony;
-        if (uuid == null)
-            this.uuid = Graduate.STEVE_UUID;
-        else
+        if (uuid != null)
             this.uuid = UUID.fromString(uuid);
         this.timeslot = timeslot;
     }
-
-    // this is my skin lol someone please change it
-    public static final UUID STEVE_UUID = UUID.fromString("07a6fd4b-3c03-4df7-9c4e-951d1d57c58b");
 
     private int id;
     private String name;

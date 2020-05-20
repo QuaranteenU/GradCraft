@@ -50,7 +50,7 @@ public class GradCraftPlugin extends PluginBase {
         dbconfig.setJdbcUrl(config.getString("db.server", "jdbc:mysql://localhost:3306/gradcraft"));
         dbconfig.setUsername(config.getString("db.username", "root"));
         dbconfig.setPassword(config.getString("db.password", "asdfasdf"));
-        dbconfig.addDataSourceProperty("characterEncoding", "utf8mb4");
+        //dbconfig.addDataSourceProperty("characterEncoding", "utf8mb4");
         dbconfig.addDataSourceProperty("useUnicode", "true");
         dbconfig.setPoolName("gradcraft");
         //dbconfig.setDataSourceClassName(config.getString("db.datasource", "com.mysql.cj.jdbc.MysqlDataSource"));
@@ -72,9 +72,6 @@ public class GradCraftPlugin extends PluginBase {
         this.getCommand("cerstatus").setExecutor(new StatusCommand(this));
         this.getCommand("cerlist").setExecutor(new ListCommand(this));
 
-
-        this.getCommand("spawngrad").setExecutor(new SpawnGraduateCommand(this));
-        this.getCommand("destroygrad").setExecutor(new DestroyGraduateCommand(this));
 
         this.getServer().getScheduler().runTaskTimer(this, new CeremonyTimer(this), 40, 40);
 
