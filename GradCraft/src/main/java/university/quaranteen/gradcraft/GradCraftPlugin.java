@@ -7,6 +7,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import kr.entree.spigradle.Plugin;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.scheduler.BukkitTask;
 import university.quaranteen.gradcraft.ceremony.ActiveCeremony;
 import university.quaranteen.gradcraft.ceremony.CeremonyTimer;
 import university.quaranteen.gradcraft.ceremony.commands.*;
@@ -25,6 +26,8 @@ public class GradCraftPlugin extends PluginBase {
     public HikariDataSource db;
 
     public ActiveCeremony ceremony;
+
+    public BukkitTask ceremonyTimerTask;
 
     @Override
     public int getMinimumLibVersion() {
@@ -71,6 +74,10 @@ public class GradCraftPlugin extends PluginBase {
     @Override
     public void disable() {
         getLogger().info("GradCraft disabled!");
+        if (ceremonyTimerTask != null)
+            this.getServer().getScheduler().cancelTask(ceremonyTimerTask.getTaskId());
+        if (db != null)
+            db.close();
     }
 
     @Override
