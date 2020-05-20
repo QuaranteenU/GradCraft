@@ -29,8 +29,8 @@ public class ListCommand implements CommandExecutor {
             c = db.getConnection();
             PreparedStatement stmt = c.prepareStatement("SELECT c.id, c.name, c.startTime, COUNT(g.id) as graduates\n" +
                     "FROM ceremonies c LEFT OUTER JOIN graduates g ON c.id = g.ceremony\n" +
-                    "GROUP BY g.ceremony " +
-                    "ORDER BY g.ceremony;");
+                    "GROUP BY c.id, c.name, c.startTime " +
+                    "ORDER BY c.id;");
             res = stmt.executeQuery();
             while (res.next()) {
                 sender.sendMessage(new MessageBuilder()

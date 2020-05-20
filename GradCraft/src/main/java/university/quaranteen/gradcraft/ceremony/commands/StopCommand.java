@@ -23,10 +23,7 @@ public class StopCommand implements CommandExecutor {
             return true;
         }
 
-        sender.sendMessage(new MessageBuilder()
-                .green("Ceremony #", plugin.ceremony.getId(), " stopped.")
-                .toString()
-        );
+        plugin.ceremony.getStageController().stopCeremony(plugin.ceremony.getId(), plugin.ceremony.getShowRunner());
         plugin.ceremony = null;
 
         return true;

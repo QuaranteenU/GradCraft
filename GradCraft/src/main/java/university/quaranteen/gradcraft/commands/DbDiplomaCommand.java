@@ -13,7 +13,7 @@ import javax.annotation.Nonnull;
 
 public class DbDiplomaCommand implements CommandExecutor {
     //language=SQL
-    private static final String GET_USER_NAME_AND_MAJOR_QUERY = "SELECT name, degreeLevel, major " +
+    public static final String GET_USER_NAME_AND_MAJOR_QUERY = "SELECT name, degreeLevel, major " +
             "FROM graduates " +
             "WHERE uuid=?;";
     private final GradCraftPlugin plugin;

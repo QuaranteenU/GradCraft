@@ -80,13 +80,13 @@ public class GraduateNPC {
                 con.disconnect();
                 Bukkit.getScheduler().runTask(CitizensAPI.getPlugin(), () -> trait.setSkinPersistent(uuid, signature, textureEncoded));
             } catch (Throwable t) {
-                plugin.getLogger().warning(npc.getName() + ":" + Messages.ERROR_SETTING_SKIN_URL + ":" + t.toString());
+                plugin.getLogger().severe(npc.getName() + ":" + Messages.ERROR_SETTING_SKIN_URL + ":" + t.toString());
             } finally {
                 if (reader != null) {
                     try {
                         reader.close();
                     } catch (IOException e) {
-                        plugin.getLogger().warning(e.toString());
+                        plugin.getLogger().severe(e.toString());
                     }
                 }
             }

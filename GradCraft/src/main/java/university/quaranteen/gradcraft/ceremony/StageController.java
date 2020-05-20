@@ -70,15 +70,25 @@ public class StageController {
                 plugin.config.getDouble("degreeNpcPoint.z"));
     }
 
-    public void startCeremony() {
-        if (professorNPC != null) {
+    public void startCeremony(int id, Player showRunner) {
+        if (professorNPC == null) {
             professorNPC = new ProfessorNPC(professorLocation);
         }
+
+        MessageBuilder m = new MessageBuilder().dark_gray("=====");
+        m.newLine().green("Starting ceremony " + id + "!");
+        m.newLine().dark_gray("=====");
+        showRunner.sendMessage(m.toString());
     }
 
-    public void stopCeremony() {
+    public void stopCeremony(int id, Player showRunner) {
         if (professorNPC != null) professorNPC.destroy();
         if (currentGraduateNPC != null) currentGraduateNPC.destroy();
+
+        MessageBuilder m = new MessageBuilder().dark_gray("=====");
+        m.newLine().red("Ceremony " + id + " over!");
+        m.newLine().dark_gray("=====");
+        showRunner.sendMessage(m.toString());
     }
 
     public void nextGraduate(Graduate g) {
@@ -174,8 +184,7 @@ public class StageController {
                 currentGraduateNPC.destroy();
                 currentGraduateNPC = null;
             }
-            GraduateNPC grad = new GraduateNPC(tpInLocation, currentGraduate);
-            currentGraduateNPC = grad;
+            currentGraduateNPC = new GraduateNPC(tpInLocation, currentGraduate);
         }
     }
 
