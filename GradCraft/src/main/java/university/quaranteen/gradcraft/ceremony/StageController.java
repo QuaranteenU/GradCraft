@@ -143,8 +143,6 @@ public class StageController {
                         .blue(currentGraduate.getDegreeLevel())
                         .white(" - ")
                         .blue(currentGraduate.getMajor())
-                        .newLine()
-                        .aqua(currentGraduate.getUniversityName())
                         .toString())
                 .build();
         for (Player p : players) {
