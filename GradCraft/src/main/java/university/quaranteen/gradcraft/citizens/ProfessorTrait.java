@@ -38,9 +38,7 @@ public class ProfessorTrait extends Trait implements Listener {
         if (event.getNPC() == this.getNPC()) {
             Player grad = event.getClicker();
             if (grad != null) {
-                if(grad.getInventory().contains(Material.FILLED_MAP)) {
-                    grad.sendMessage("Looks like you already have a diploma!");
-                } else {
+                if(!grad.getInventory().contains(Material.FILLED_MAP)) {
                     try {
                         Connection c = plugin.db.getConnection();
                         PreparedStatement stmt = c.prepareStatement(GET_USER_NAME_AND_MAJOR_QUERY);
