@@ -11,6 +11,9 @@ import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -145,8 +148,20 @@ public class StageController {
                         .blue(currentGraduate.getMajor())
                         .toString())
                 .build();
+
+        // trying this out - all formatting applies to the last item appended
+        ComponentBuilder msg = new ComponentBuilder();
+        msg.append(currentGraduate.getName() + "\n").bold(true).color(ChatColor.AQUA);
+        msg.append(currentGraduate.getDegreeLevel()).color(ChatColor.BLUE);
+        msg.append(" - ").color(ChatColor.WHITE);
+        msg.append(currentGraduate.getMajor() + "\n").color(ChatColor.BLUE);
+        msg.append(currentGraduate.getUniversityName() + "\n").color(ChatColor.BLUE);
+
+        BaseComponent[] toSend = msg.getParts().toArray(BaseComponent[]::new);
+
         for (Player p : players) {
             p.sendTitle(t);
+            p.sendMessage(toSend);
         }
     }
 
