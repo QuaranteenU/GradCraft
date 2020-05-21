@@ -140,12 +140,12 @@ public class StageController {
         List<Player> players = this.world.getPlayers();
         Title t = Title.builder().stay(60)
                 .title(new MessageBuilder()
-                        .aqua(currentGraduate.getName())
+                        .aqua(currentGraduate.getName().replaceAll("\n", ""))
                         .toString())
                 .subtitle(new MessageBuilder()
-                        .blue(currentGraduate.getDegreeLevel())
+                        .blue(currentGraduate.getDegreeLevel().replaceAll("\n", ""))
                         .white(" - ")
-                        .blue(currentGraduate.getMajor())
+                        .blue(currentGraduate.getMajor().replaceAll("\n", ""))
                         .toString())
                 .build();
 
