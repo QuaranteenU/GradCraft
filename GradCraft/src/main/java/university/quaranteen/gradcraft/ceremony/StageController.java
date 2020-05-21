@@ -152,12 +152,12 @@ public class StageController {
         // trying this out - all formatting applies to the last item appended
         ComponentBuilder msg = new ComponentBuilder();
         msg.append(currentGraduate.getName() + "\n").bold(true).color(ChatColor.AQUA);
-        msg.append(currentGraduate.getDegreeLevel()).color(ChatColor.BLUE);
+        msg.append(currentGraduate.getDegreeLevel()).bold(false).color(ChatColor.BLUE);
         msg.append(" - ").color(ChatColor.WHITE);
         msg.append(currentGraduate.getMajor() + "\n").color(ChatColor.BLUE);
-        msg.append(currentGraduate.getUniversityName() + "\n").color(ChatColor.BLUE);
+        msg.append(currentGraduate.getUniversityName()).color(ChatColor.BLUE);
 
-        BaseComponent[] toSend = msg.getParts().toArray(BaseComponent[]::new);
+        BaseComponent[] toSend = msg.getParts().toArray(new BaseComponent[0]);
 
         for (Player p : players) {
             p.sendTitle(t);
