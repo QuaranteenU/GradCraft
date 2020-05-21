@@ -2,6 +2,7 @@ package university.quaranteen.gradcraft;
 
 import com.bergerkiller.bukkit.common.Common;
 import com.bergerkiller.bukkit.common.PluginBase;
+import com.comphenix.protocol.ProtocolLibrary;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import kr.entree.spigradle.Plugin;
@@ -31,7 +32,8 @@ public class GradCraftPlugin extends PluginBase {
     public ActiveCeremony ceremony;
 
     public BukkitTask ceremonyTimerTask;
-    public GraduateNPC currentGraduateNPC = null;
+
+    private NametagListener nametagListener;
 
     @Override
     public int getMinimumLibVersion() {
@@ -75,7 +77,9 @@ public class GradCraftPlugin extends PluginBase {
 
         this.getServer().getScheduler().runTaskTimer(this, new CeremonyTimer(this), 20, 20);
 
-        this.register(new NametagListener(this));
+        nametagListener = new NametagListener(this);
+        this.register(nametagListener);
+        ProtocolLibrary.getProtocolManager().addPacketListener(nametagListener);
 
         // Register your trait with Citizens
         CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(GraduateTrait.class).withName("graduate"));
@@ -89,6 +93,9 @@ public class GradCraftPlugin extends PluginBase {
             this.getServer().getScheduler().cancelTask(ceremonyTimerTask.getTaskId());
         if (db != null)
             db.close();
+
+        CitizensAPI.getTraitFactory().deregisterTrait(TraitInfo.create(GraduateTrait.class).withName("graduate"));
+        CitizensAPI.getTraitFactory().deregisterTrait(TraitInfo.create(ProfessorTrait.class).withName("professor"));
     }
 
     @Override
