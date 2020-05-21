@@ -13,12 +13,9 @@ import university.quaranteen.gradcraft.ceremony.ActiveCeremony;
 import university.quaranteen.gradcraft.ceremony.CeremonyTimer;
 import university.quaranteen.gradcraft.ceremony.commands.*;
 import university.quaranteen.gradcraft.commands.DbDiplomaCommand;
-import university.quaranteen.gradcraft.commands.DiplomaCommand;
 import university.quaranteen.gradcraft.commands.RobesCommand;
-import university.quaranteen.gradcraft.diploma.Diploma;
 import university.quaranteen.gradcraft.nametags.NametagListener;
 import university.quaranteen.gradcraft.citizens.*;
-import university.quaranteen.gradcraft.commands.*;
 
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.trait.TraitInfo;
@@ -62,8 +59,7 @@ public class GradCraftPlugin extends PluginBase {
         getLogger().info("GradCraft initialized!");
 
         // register commands
-        this.getCommand("diploma").setExecutor(new DiplomaCommand());
-        this.getCommand("dbdiploma").setExecutor(new DbDiplomaCommand(this));
+        this.getCommand("diploma").setExecutor(new DbDiplomaCommand(this));
         this.getCommand("robes").setExecutor(new RobesCommand(this));
 
         // ceremony commands

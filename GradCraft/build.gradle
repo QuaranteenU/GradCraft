@@ -35,12 +35,8 @@ spigot {
     website = 'https://quaranteen.university/'
     commands {
         diploma {
-            description = 'Diploma command'
-            usage = '/diploma <name> <major>'
-        }
-        dbdiploma {
-            description = 'Get your diploma from the database!'
-            usage = '/dbdiploma'
+            description = 'Get your diploma!'
+            usage = '/diploma'
         }
         cerlist {
             description = 'List available ceremonies'

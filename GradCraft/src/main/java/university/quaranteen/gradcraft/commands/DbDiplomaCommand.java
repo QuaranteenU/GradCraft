@@ -27,17 +27,18 @@ public class DbDiplomaCommand implements CommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             try {
-                this.plugin.getLogger().info("Congratulations, " + player.getDisplayName() + " \"" + player.getUniqueId().toString() + "\"! Here's your diploma!");
                 Connection c = plugin.db.getConnection();
                 PreparedStatement stmt = c.prepareStatement(GET_USER_NAME_AND_MAJOR_QUERY);
                 stmt.setString(1, player.getUniqueId().toString());
                 ResultSet res = stmt.executeQuery();
-                player.sendMessage("Congratulations, " + player.getDisplayName() + " \"" + player.getUniqueId().toString() + "\"! Here's your diploma!");
                 if (res.next()) {
+                    player.sendMessage("Congratulations, " + player.getName() + "! Here's your diploma!");
                     String name = res.getString(1);
                     String degreeLevel = res.getString(2);
                     String major = res.getString(3);
                     player.getInventory().addItem(new Diploma(player, name, major, degreeLevel).createItem());
+                } else {
+                    player.sendMessage("You're not a graduate! :(");
                 }
                 res.close();
                 c.close();
