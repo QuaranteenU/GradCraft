@@ -48,6 +48,36 @@ public class GraduateNPC {
         npc.spawn(spawnPoint, SpawnReason.CREATE);
     }
 
+    private JSONObject fetchSkin() {
+        BufferedReader reader = null;
+        JSONObject data = null;
+        try {
+            URL target = new URL("https://api.mineskin.org/generate/user/" + grad.getUuid().toString());
+            HttpURLConnection con = (HttpURLConnection) target.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0"); // feelsbadman
+            con.setDoOutput(true);
+            con.setConnectTimeout(1000);
+            con.setReadTimeout(30000);
+            reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            JSONObject output = (JSONObject) new JSONParser().parse(reader);
+            data = (JSONObject) output.get("data");
+            con.disconnect();
+            return data;
+        } catch (Throwable t) {
+            plugin.getLogger().severe(npc.getName() + ":" + Messages.ERROR_SETTING_SKIN_URL + ":" + t.toString());
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    plugin.getLogger().severe(e.toString());
+                }
+            }
+        }
+        return data;
+    }
+
     private void setSkin() {
         final SkinTrait trait = npc.getTrait(SkinTrait.class);
         if (grad.getUuid() == null) {
@@ -55,36 +85,15 @@ public class GraduateNPC {
             return;
         }
 
-
         Bukkit.getScheduler().runTaskAsynchronously(CitizensAPI.getPlugin(), () -> {
-            BufferedReader reader = null;
-            try {
-                URL target = new URL("https://api.mineskin.org/generate/user/" + grad.getUuid().toString());
-                HttpURLConnection con = (HttpURLConnection) target.openConnection();
-                con.setRequestMethod("GET");
-                con.setRequestProperty ("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0"); // feelsbadman
-                con.setDoOutput(true);
-                con.setConnectTimeout(1000);
-                con.setReadTimeout(30000);
-                reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                JSONObject output = (JSONObject) new JSONParser().parse(reader);
-                JSONObject data = (JSONObject) output.get("data");
+            JSONObject data = fetchSkin();
+
+            if (data != null) {
                 String uuid = (String) data.get("uuid");
                 JSONObject texture = (JSONObject) data.get("texture");
                 String textureEncoded = (String) texture.get("value");
                 String signature = (String) texture.get("signature");
-                con.disconnect();
                 Bukkit.getScheduler().runTask(CitizensAPI.getPlugin(), () -> trait.setSkinPersistent(uuid, signature, textureEncoded));
-            } catch (Throwable t) {
-                plugin.getLogger().severe(npc.getName() + ":" + Messages.ERROR_SETTING_SKIN_URL + ":" + t.toString());
-            } finally {
-                if (reader != null) {
-                    try {
-                        reader.close();
-                    } catch (IOException e) {
-                        plugin.getLogger().severe(e.toString());
-                    }
-                }
             }
         });
     }

@@ -33,8 +33,6 @@ public class StopCommand implements CommandExecutor {
             return true;
         }
 
-
-
         plugin.ceremony.getStageController().stopCeremony(plugin.ceremony.getId(), plugin.ceremony.getShowRunner());
         plugin.ceremony = null;
 

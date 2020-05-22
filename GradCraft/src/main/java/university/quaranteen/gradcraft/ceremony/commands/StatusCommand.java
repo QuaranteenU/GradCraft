@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import university.quaranteen.gradcraft.GradCraftPlugin;
 
+import javax.annotation.Nonnull;
 import java.sql.*;
 import java.time.Duration;
 import java.time.Instant;
@@ -19,7 +20,7 @@ public class StatusCommand implements CommandExecutor {
     private final GradCraftPlugin plugin;
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
         if (plugin.ceremony == null) {
             sender.sendMessage(new MessageBuilder()
                     .red("There is no active ceremony.")
@@ -36,7 +37,7 @@ public class StatusCommand implements CommandExecutor {
         try {
             c = plugin.db.getConnection();
 
-            PreparedStatement stmt = c.prepareStatement("select count(*), min(timeslot), max(timeslot) from graduates where ceremony = ?");
+            PreparedStatement stmt = c.prepareStatement("SELECT COUNT(*), MIN(timeslot), MAX(timeslot) FROM graduates WHERE ceremony = ?");
             stmt.setInt(1, plugin.ceremony.getId());
             res = stmt.executeQuery();
             if (res.next()) {
@@ -49,7 +50,7 @@ public class StatusCommand implements CommandExecutor {
             }
             res.close();
 
-            stmt = c.prepareStatement("select count(*) from graduates where not graduated and ceremony = ?");
+            stmt = c.prepareStatement("SELECT COUNT(*) FROM graduates WHERE NOT graduated AND ceremony = ?");
             stmt.setInt(1, plugin.ceremony.getId());
             res = stmt.executeQuery();
             if (res.next()) {
