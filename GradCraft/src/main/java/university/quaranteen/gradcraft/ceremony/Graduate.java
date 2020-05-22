@@ -41,15 +41,15 @@ public class Graduate {
         this.timeslot = timeslot;
     }
 
-    private int id;
-    private String name;
-    private String pronunciation;
-    private String degreeLevel;
-    private String honors;
-    private String major;
-    private String seniorQuote;
-    private String universityName;
-    private ActiveCeremony ceremony;
+    private final int id;
+    private final String name;
+    private final String pronunciation;
+    private final String degreeLevel;
+    private final String honors;
+    private final String major;
+    private final String seniorQuote;
+    private final String universityName;
+    private final ActiveCeremony ceremony;
     private UUID uuid;
     private boolean graduated;
     private final Timestamp timeslot;

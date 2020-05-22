@@ -16,7 +16,7 @@ public class StatusCommand implements CommandExecutor {
         this.plugin = plugin;
     }
 
-    private GradCraftPlugin plugin;
+    private final GradCraftPlugin plugin;
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

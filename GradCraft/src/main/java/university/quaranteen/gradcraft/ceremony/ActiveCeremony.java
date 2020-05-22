@@ -14,10 +14,10 @@ public class ActiveCeremony {
         this.stageController = new StageController(world, plugin);
     }
 
-    private int id;
+    private final int id;
     private World world;
     private Player controller;
-    private HikariDataSource db;
+    private final HikariDataSource db;
     private Graduate currentGraduate;
     private final StageController stageController;
 
@@ -54,10 +54,10 @@ public class ActiveCeremony {
         try {
             c = db.getConnection();
             PreparedStatement stmt = c.prepareStatement("SELECT g.id, g.name, pronunciation, degreeLevel, honors,  major, seniorQuote, uuid, u.name, graduated, timeslot " +
-                    "from graduates g join universities u on g.university = u.id " +
-                    "where not graduated and ceremony = ? " +
-                    "order by timeslot asc "+
-                    "limit 1;");
+                    "FROM graduates g JOIN universities u ON g.university = u.id " +
+                    "WHERE NOT graduated AND ceremony = ? " +
+                    "ORDER BY timeslot ASC "+
+                    "LIMIT 1;");
             stmt.setInt(1, this.id);
             res = stmt.executeQuery();
             Graduate g = null;

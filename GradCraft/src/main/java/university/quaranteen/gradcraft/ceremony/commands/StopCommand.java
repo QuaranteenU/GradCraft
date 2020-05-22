@@ -6,15 +6,17 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import university.quaranteen.gradcraft.GradCraftPlugin;
 
+import javax.annotation.Nonnull;
+
 public class StopCommand implements CommandExecutor {
     public StopCommand(GradCraftPlugin plugin) {
         this.plugin = plugin;
     }
 
-    private GradCraftPlugin plugin;
+    private final GradCraftPlugin plugin;
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
         if (sender != plugin.ceremony.getShowRunner()) {
             sender.sendMessage(new MessageBuilder()
                     .red("You're not the show runner!")

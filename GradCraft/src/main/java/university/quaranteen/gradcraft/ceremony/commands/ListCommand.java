@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import university.quaranteen.gradcraft.GradCraftPlugin;
 import com.bergerkiller.bukkit.common.MessageBuilder;
 
+import javax.annotation.Nonnull;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,10 +19,10 @@ public class ListCommand implements CommandExecutor {
         this.db = plugin.db;
     }
 
-    private HikariDataSource db;
+    private final HikariDataSource db;
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
         Connection c;
         ResultSet res;
         try {

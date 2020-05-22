@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import university.quaranteen.gradcraft.GradCraftPlugin;
 import university.quaranteen.gradcraft.ceremony.ActiveCeremony;
 
+import javax.annotation.Nonnull;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,7 +30,7 @@ public class StartCommand implements CommandExecutor {
     private final GradCraftPlugin plugin;
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage("Can't run this from console!");
             return true;

@@ -25,8 +25,8 @@ import static university.quaranteen.gradcraft.nametags.NametagListener.getAbbrev
 
 public class GraduateNPC {
     private final GradCraftPlugin plugin;
-    private Graduate grad;
-    private NPC npc;
+    private final Graduate grad;
+    private final NPC npc;
 
     public static final String alexUUID = "66a68bc0-2e3c-40ce-984c-3153646d1694";
     public static final String alexSignature = "iCp20y1BzuwlIIM9TR0r0UQf2dKnM5h0qSVVBmOoN3d4NS9dWVKoY2IyYkb6BukF6XjQ/HgdXqNGEdJpggUJqUd67acFhZhLV6XXpAWg2scBC5cm/sbvC4c3Dj3B8/xWtjyZpM4dv12NOBbQAcZBFWYU1pSmwyJRkF2bcBwcD/WkrQqM8OvvkSrPsYWg2ZHgJPOElIbGr2Qbo+cTCLK8cEaruWSDT9PGzqLp0YKr6r4zonA0H08fJtNrKGY6tx8NkpJWA/5OTgsyldbChQmIUUVG1rxM9NnOBX9HsWe2WGt/FJ7yI0vHgML+dSmrjA071nZ3+Arue6I6XowjcUaWndQ2g/POhqMHkohIqXGgmXio0oGgZSW7gbDWztB/s52n4Xt/LEraypLzHRbwyYLqwW12fpjwq7sUE47UjteUO3QmXu/ZFAVpdVjkMRNS038MrZIJeoTXK3FtkmTl6LIucXfYA6mK7yUF8ueacgT0rzrb4VQKXSW9jAnAYPFclaiITkcZS1mx1mTSftAWQYaCzPvIyNycE9aEAjxWQHwJ6GMR6VXAF6LbIbaLtqBJw9DoksUw3CX7Hszwsw06ec4n+WG1LUmPWXRuPszdiTGQFmXIGZeAlDKahTDIHYlKvXgAg84mVVY/qIxAqcmPwwhtbhYut9pz5rRUNH2NjCCgHyc=";

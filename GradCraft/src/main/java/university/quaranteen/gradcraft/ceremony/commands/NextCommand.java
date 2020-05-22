@@ -9,15 +9,17 @@ import university.quaranteen.gradcraft.GradCraftPlugin;
 import university.quaranteen.gradcraft.ceremony.Graduate;
 import university.quaranteen.gradcraft.ceremony.StageController;
 
+import javax.annotation.Nonnull;
+
 public class NextCommand implements CommandExecutor {
     public NextCommand(GradCraftPlugin plugin) {
         this.plugin = plugin;
     }
 
-    private GradCraftPlugin plugin;
+    private final GradCraftPlugin plugin;
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
         if (plugin.ceremony == null) {
             sender.sendMessage(new MessageBuilder()
                     .red("There isn't an active ceremony! Use /cerlist and /cerstart to begin")
