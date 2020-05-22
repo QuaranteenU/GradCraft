@@ -23,9 +23,6 @@ import university.quaranteen.gradcraft.citizens.GraduateNPC;
 import university.quaranteen.gradcraft.citizens.ProfessorNPC;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
-import java.util.logging.Logger;
 
 public class StageController {
     private final World world;

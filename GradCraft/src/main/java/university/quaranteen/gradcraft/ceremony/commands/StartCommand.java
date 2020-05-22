@@ -1,7 +1,6 @@
 package university.quaranteen.gradcraft.ceremony.commands;
 
 import com.bergerkiller.bukkit.common.MessageBuilder;
-import com.bergerkiller.bukkit.common.utils.WorldUtil;
 import com.zaxxer.hikari.HikariDataSource;
 import org.bukkit.ChatColor;
 import org.bukkit.World;

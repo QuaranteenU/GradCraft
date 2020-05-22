@@ -1,6 +1,5 @@
 package university.quaranteen.gradcraft.ceremony.commands;
 
-import com.google.protobuf.Message;
 import com.zaxxer.hikari.HikariDataSource;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

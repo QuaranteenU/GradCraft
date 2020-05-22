@@ -5,13 +5,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import university.quaranteen.gradcraft.GradCraftPlugin;
-import university.quaranteen.gradcraft.ceremony.Graduate;
 
 import java.sql.*;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
-import java.time.temporal.Temporal;
 
 public class StatusCommand implements CommandExecutor {
     public StatusCommand(GradCraftPlugin plugin) {

@@ -1,19 +1,11 @@
 package university.quaranteen.gradcraft.ceremony;
 
-import com.bergerkiller.bukkit.common.MessageBuilder;
-import com.destroystokyo.paper.Title;
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.zaxxer.hikari.HikariDataSource;
-import net.md_5.bungee.api.chat.BaseComponent;
-import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import university.quaranteen.gradcraft.GradCraftPlugin;
 
 import java.sql.*;
-import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ActiveCeremony {
     public ActiveCeremony(int id, World world, GradCraftPlugin plugin) {

@@ -2,13 +2,9 @@ package university.quaranteen.gradcraft.citizens;
 
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.ai.Navigator;
-import net.citizensnpcs.api.ai.event.CancelReason;
-import net.citizensnpcs.api.ai.event.NavigationBeginEvent;
 import net.citizensnpcs.api.ai.event.NavigationCompleteEvent;
-import net.citizensnpcs.api.ai.event.NavigatorCallback;
 import net.citizensnpcs.api.trait.Trait;
 import net.citizensnpcs.api.trait.trait.Equipment;
-import net.citizensnpcs.nms.v1_11_R1.entity.EntityHumanNPC;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -19,9 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 import university.quaranteen.gradcraft.GradCraftPlugin;
 
-import java.util.Arrays;
 import java.util.Objects;
-
 
 public class GraduateTrait extends Trait {
     private final GradCraftPlugin plugin;
