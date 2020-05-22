@@ -23,6 +23,16 @@ public class StopCommand implements CommandExecutor {
             return true;
         }
 
+        if (plugin.ceremony == null) {
+            sender.sendMessage(new MessageBuilder()
+                    .red("There isn't a ceremony running.")
+                    .toString()
+            );
+            return true;
+        }
+
+
+
         plugin.ceremony.getStageController().stopCeremony(plugin.ceremony.getId(), plugin.ceremony.getShowRunner());
         plugin.ceremony = null;
 
