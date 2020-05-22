@@ -49,8 +49,8 @@ public class ProfessorTrait extends Trait implements Listener {
                             String degreeLevel = res.getString(2);
                             String major = res.getString(3);
                             grad.getInventory().addItem(new Diploma(grad, name, major, degreeLevel).createItem());
-                            this.plugin.getLogger().info("Congratulations, " + grad.getDisplayName() + " \"" + grad.getUniqueId().toString() + "\"! Here's your diploma!");
-                            grad.sendMessage("Congratulations, " + grad.getDisplayName() + " \"" + grad.getUniqueId().toString() + "\"! Here's your diploma!");
+                            this.plugin.getLogger().info("Congratulations, " + grad.getDisplayName() + "! Here's your diploma!");
+                            grad.sendMessage("Congratulations, " + grad.getDisplayName() + "! Here's your diploma!");
                         }
                         res.close();
                         c.close();

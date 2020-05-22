@@ -30,7 +30,7 @@ public class GradCraftPlugin extends PluginBase {
 
     public BukkitTask ceremonyTimerTask;
 
-    private NametagListener nametagListener;
+    //private NametagListener nametagListener;
 
     @Override
     public int getMinimumLibVersion() {
@@ -46,7 +46,7 @@ public class GradCraftPlugin extends PluginBase {
 
         // connect to database
         HikariConfig dbconfig = new HikariConfig();
-        dbconfig.setJdbcUrl(config.getString("db.server", "jdbc:mysql://localhost:3306/gradcraft"));
+        dbconfig.setJdbcUrl(config.getString("db.server", "jdbc:mysql://localhost:3306/gradcraft?serverTimezone=UTC"));
         dbconfig.setUsername(config.getString("db.username", "root"));
         dbconfig.setPassword(config.getString("db.password", "asdfasdf"));
         dbconfig.addDataSourceProperty("characterEncoding", "UTF-8");
@@ -73,9 +73,9 @@ public class GradCraftPlugin extends PluginBase {
 
         this.getServer().getScheduler().runTaskTimer(this, new CeremonyTimer(this), 20, 20);
 
-        nametagListener = new NametagListener(this);
-        this.register(nametagListener);
-        ProtocolLibrary.getProtocolManager().addPacketListener(nametagListener);
+        //nametagListener = new NametagListener(this);
+        //this.register(nametagListener);
+        //ProtocolLibrary.getProtocolManager().addPacketListener(nametagListener);
 
         // Register your trait with Citizens
         CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(GraduateTrait.class).withName("graduate"));
