@@ -152,7 +152,7 @@ public class NametagListener implements Listener, PacketListener {
     @Override
     public ListeningWhitelist getSendingWhitelist() {
         return ListeningWhitelist.newBuilder()
-                .normal()
+                .lowest()
                 .types(PacketType.Play.Server.PLAYER_INFO)
                 .gamePhase(GamePhase.BOTH)
                 .build();
