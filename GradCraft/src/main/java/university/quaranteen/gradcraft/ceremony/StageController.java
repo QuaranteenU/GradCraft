@@ -137,13 +137,13 @@ public class StageController {
         List<Player> players = this.world.getPlayers();
         Title t = Title.builder().stay(60)
                 .title(new MessageBuilder()
-                        .aqua(currentGraduate.getName().replaceAll("\n", ""))
+                        .aqua(currentGraduate.getName())
                         .toString())
                 .subtitle(new MessageBuilder()
-                        .blue(currentGraduate.getDegreeLevel().replaceAll("\n", ""))
+                        .blue(currentGraduate.getDegreeLevel())
                         .white(" - ")
-                        .blue(currentGraduate.getMajor().replaceAll("\n", ""))
-                        .toString())
+                        .blue(currentGraduate.getMajor())
+                        .toString().replaceAll("\n", ""))
                 .build();
 
         // trying this out - all formatting applies to the last item appended
