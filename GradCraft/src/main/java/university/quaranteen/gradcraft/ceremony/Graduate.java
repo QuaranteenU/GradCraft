@@ -9,7 +9,7 @@ import java.time.Duration;
 import java.util.UUID;
 
 public class Graduate {
-    public Graduate(int id, ActiveCeremony ceremony, String name, String pronunciation, String degreeLevel, String honors, String major, String seniorQuote, UUID uuid, String universityName, boolean graduated, Timestamp timeslot) {
+    public Graduate(int id, ActiveCeremony ceremony, String name, String pronunciation, String degreeLevel, String honors, String major, String seniorQuote, UUID uuid, String universityName, boolean isHighSchool, boolean graduated, Timestamp timeslot) {
         this.id = id;
         this.name = name;
         this.pronunciation = pronunciation;
@@ -18,6 +18,7 @@ public class Graduate {
         this.major = major;
         this.seniorQuote = seniorQuote;
         this.universityName = universityName;
+        this.isHighSchool = isHighSchool;
         this.graduated = graduated;
         this.ceremony = ceremony;
         if (uuid != null)
@@ -25,7 +26,7 @@ public class Graduate {
         this.timeslot = timeslot;
     }
 
-    public Graduate(int id, ActiveCeremony ceremony, String name, String pronunciation, String degreeLevel, String honors, String major, String seniorQuote, String uuid, String universityName, boolean graduated, Timestamp timeslot) {
+    public Graduate(int id, ActiveCeremony ceremony, String name, String pronunciation, String degreeLevel, String honors, String major, String seniorQuote, String uuid, String universityName, boolean isHighSchool, boolean graduated, Timestamp timeslot) {
         this.id = id;
         this.name = name;
         this.pronunciation = pronunciation;
@@ -34,6 +35,7 @@ public class Graduate {
         this.major = major;
         this.seniorQuote = seniorQuote;
         this.universityName = universityName;
+        this.isHighSchool = isHighSchool;
         this.graduated = graduated;
         this.ceremony = ceremony;
         if (uuid != null)
@@ -50,6 +52,7 @@ public class Graduate {
     private final String seniorQuote;
     private final String universityName;
     private final ActiveCeremony ceremony;
+    private final boolean isHighSchool;
     private UUID uuid;
     private boolean graduated;
     private final Timestamp timeslot;
@@ -81,6 +84,10 @@ public class Graduate {
 
     public String getSeniorQuote() {
         return seniorQuote;
+    }
+
+    public boolean isHighSchool() {
+        return isHighSchool;
     }
 
     public UUID getUuid() {

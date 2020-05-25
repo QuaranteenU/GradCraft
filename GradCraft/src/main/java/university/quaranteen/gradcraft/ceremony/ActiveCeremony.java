@@ -53,7 +53,7 @@ public class ActiveCeremony {
         ResultSet res;
         try {
             c = db.getConnection();
-            PreparedStatement stmt = c.prepareStatement("SELECT g.id, g.name, pronunciation, degreeLevel, honors,  major, seniorQuote, uuid, u.name, graduated, timeslot " +
+            PreparedStatement stmt = c.prepareStatement("SELECT g.id, g.name, pronunciation, degreeLevel, honors,  major, seniorQuote, uuid, u.name, isHighSchool, graduated, timeslot " +
                     "FROM graduates g JOIN universities u ON g.university = u.id " +
                     "WHERE NOT graduated AND ceremony = ? " +
                     "ORDER BY timeslot ASC "+
@@ -74,7 +74,8 @@ public class ActiveCeremony {
                         res.getString(8),
                         res.getString(9),
                         res.getBoolean(10),
-                        res.getTimestamp(11)
+                        res.getBoolean(11),
+                        res.getTimestamp(12)
                 );
             }
             res.close();
