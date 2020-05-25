@@ -122,7 +122,7 @@ public class StageController {
         m.newLine()
                 .green(g.getDegreeLevel() + " - " + g.getMajor())
                 .newLine()
-                .green(g.getUniversityName())
+                .green(g.getSchoolName())
                 .newLine();
 
         if (g.getHonors() != null) {
@@ -149,7 +149,7 @@ public class StageController {
                     .toString().replaceAll("\n", ""));
         else
             builder = builder.subtitle(new MessageBuilder()
-                    .blue(currentGraduate.getUniversityName())
+                    .blue(currentGraduate.getSchoolName())
                     .toString().replaceAll("\n", ""));
 
         t = builder.build();
@@ -162,7 +162,7 @@ public class StageController {
             msg.append(" - ").color(ChatColor.WHITE);
             msg.append(currentGraduate.getMajor() + "\n").color(ChatColor.BLUE);
         }
-        msg.append(currentGraduate.getUniversityName()).color(ChatColor.BLUE);
+        msg.append(currentGraduate.getSchoolName()).color(ChatColor.BLUE);
 
         BaseComponent[] toSend = msg.getParts().toArray(new BaseComponent[0]);
 

@@ -9,7 +9,7 @@ import java.time.Duration;
 import java.util.UUID;
 
 public class Graduate {
-    public Graduate(int id, ActiveCeremony ceremony, String name, String pronunciation, String degreeLevel, String honors, String major, String seniorQuote, UUID uuid, String universityName, boolean isHighSchool, boolean graduated, Timestamp timeslot) {
+    public Graduate(int id, ActiveCeremony ceremony, String name, String pronunciation, String degreeLevel, String honors, String major, String seniorQuote, UUID uuid, String schoolName, boolean isHighSchool, boolean graduated, Timestamp timeslot) {
         this.id = id;
         this.name = name;
         this.pronunciation = pronunciation;
@@ -17,7 +17,7 @@ public class Graduate {
         this.honors = honors;
         this.major = major;
         this.seniorQuote = seniorQuote;
-        this.universityName = universityName;
+        this.schoolName = schoolName;
         this.isHighSchool = isHighSchool;
         this.graduated = graduated;
         this.ceremony = ceremony;
@@ -26,7 +26,7 @@ public class Graduate {
         this.timeslot = timeslot;
     }
 
-    public Graduate(int id, ActiveCeremony ceremony, String name, String pronunciation, String degreeLevel, String honors, String major, String seniorQuote, String uuid, String universityName, boolean isHighSchool, boolean graduated, Timestamp timeslot) {
+    public Graduate(int id, ActiveCeremony ceremony, String name, String pronunciation, String degreeLevel, String honors, String major, String seniorQuote, String uuid, String schoolName, boolean isHighSchool, boolean graduated, Timestamp timeslot) {
         this.id = id;
         this.name = name;
         this.pronunciation = pronunciation;
@@ -34,7 +34,7 @@ public class Graduate {
         this.honors = honors;
         this.major = major;
         this.seniorQuote = seniorQuote;
-        this.universityName = universityName;
+        this.schoolName = schoolName;
         this.isHighSchool = isHighSchool;
         this.graduated = graduated;
         this.ceremony = ceremony;
@@ -50,7 +50,7 @@ public class Graduate {
     private final String honors;
     private final String major;
     private final String seniorQuote;
-    private final String universityName;
+    private final String schoolName;
     private final ActiveCeremony ceremony;
     private final boolean isHighSchool;
     private UUID uuid;
@@ -100,8 +100,8 @@ public class Graduate {
         return (Player) PlayerUtil.getEntity(ceremony.getStageController().getWorld(), uuid);
     }
 
-    public String getUniversityName() {
-        return universityName;
+    public String getSchoolName() {
+        return schoolName;
     }
 
     public boolean isGraduated() {
