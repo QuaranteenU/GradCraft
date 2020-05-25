@@ -135,23 +135,33 @@ public class StageController {
 
     public void notifySpectators() {
         List<Player> players = this.world.getPlayers();
-        Title t = Title.builder().stay(60)
+        Title t;
+        Title.Builder builder = Title.builder().stay(60)
                 .title(new MessageBuilder()
                         .aqua(currentGraduate.getName())
-                        .toString())
-                .subtitle(new MessageBuilder()
-                        .blue(currentGraduate.getDegreeLevel())
-                        .white(" - ")
-                        .blue(currentGraduate.getMajor())
-                        .toString().replaceAll("\n", ""))
-                .build();
+                        .toString());
+
+        if (!currentGraduate.isHighSchool())
+            builder = builder.subtitle(new MessageBuilder()
+                    .blue(currentGraduate.getDegreeLevel())
+                    .white(" - ")
+                    .blue(currentGraduate.getMajor())
+                    .toString().replaceAll("\n", ""));
+        else
+            builder = builder.subtitle(new MessageBuilder()
+                    .blue(currentGraduate.getUniversityName())
+                    .toString().replaceAll("\n", ""));
+
+        t = builder.build();
 
         // trying this out - all formatting applies to the last item appended
         ComponentBuilder msg = new ComponentBuilder();
         msg.append(currentGraduate.getName() + "\n").bold(true).color(ChatColor.AQUA);
-        msg.append(currentGraduate.getDegreeLevel()).bold(false).color(ChatColor.BLUE);
-        msg.append(" - ").color(ChatColor.WHITE);
-        msg.append(currentGraduate.getMajor() + "\n").color(ChatColor.BLUE);
+        if (!currentGraduate.isHighSchool()) {
+            msg.append(currentGraduate.getDegreeLevel()).bold(false).color(ChatColor.BLUE);
+            msg.append(" - ").color(ChatColor.WHITE);
+            msg.append(currentGraduate.getMajor() + "\n").color(ChatColor.BLUE);
+        }
         msg.append(currentGraduate.getUniversityName()).color(ChatColor.BLUE);
 
         BaseComponent[] toSend = msg.getParts().toArray(new BaseComponent[0]);
