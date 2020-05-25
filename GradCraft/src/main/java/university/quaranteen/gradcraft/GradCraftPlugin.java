@@ -30,7 +30,7 @@ public class GradCraftPlugin extends PluginBase {
 
     public BukkitTask ceremonyTimerTask;
 
-    private NametagListener nametagListener;
+    //private NametagListener nametagListener;
 
     @Override
     public int getMinimumLibVersion() {
@@ -73,9 +73,9 @@ public class GradCraftPlugin extends PluginBase {
 
         this.getServer().getScheduler().runTaskTimer(this, new CeremonyTimer(this), 20, 20);
 
-        nametagListener = new NametagListener(this);
-        this.register(nametagListener);
-        ProtocolLibrary.getProtocolManager().addPacketListener(nametagListener);
+        //nametagListener = new NametagListener(this);
+        //this.register(nametagListener);
+        //ProtocolLibrary.getProtocolManager().addPacketListener(nametagListener);
 
         // Register your trait with Citizens
         CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(GraduateTrait.class).withName("graduate"));
@@ -90,8 +90,8 @@ public class GradCraftPlugin extends PluginBase {
         if (db != null)
             db.close();
 
-        if (nametagListener != null)
-            ProtocolLibrary.getProtocolManager().removePacketListener(nametagListener);
+        //if (nametagListener != null)
+        //    ProtocolLibrary.getProtocolManager().removePacketListener(nametagListener);
 
         CitizensAPI.getTraitFactory().deregisterTrait(TraitInfo.create(GraduateTrait.class).withName("graduate"));
         CitizensAPI.getTraitFactory().deregisterTrait(TraitInfo.create(ProfessorTrait.class).withName("professor"));
