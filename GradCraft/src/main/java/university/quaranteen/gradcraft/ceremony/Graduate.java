@@ -133,7 +133,11 @@ public class Graduate {
 
     public Diploma getDiploma() {
         Player p = getPlayer();
-        return p == null || !p.isOnline() ? null : new Diploma(getPlayer(), name, major, degreeLevel);
+        if (p != null && p.isOnline()) {
+            return isHighSchool ? new Diploma(getPlayer(), name, schoolName, isHighSchool) : new Diploma(getPlayer(), name, major, degreeLevel, isHighSchool);
+        } else {
+            return null;
+        }
     }
 
     public void setGraduated(boolean graduated) {

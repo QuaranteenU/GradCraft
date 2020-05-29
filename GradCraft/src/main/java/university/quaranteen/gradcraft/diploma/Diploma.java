@@ -33,16 +33,31 @@ public class Diploma {
     public static final String DIPLOMA_NAME_FIELD = "diplomaOwnerName";
     public static final String DIPLOMA_MAJOR_FIELD = "diplomaMajor";
     public static final String DIPLOMA_LEVEL_FIELD = "diplomaLevel";
+    public static final String DIPLOMA_SCHOOL_FIELD = "diplomaSchool";
+    public static final String DIPLOMA_IS_HS_FIELD = "diplomaIsHS";
     private final Player owner;
     private final String name;
     private final String major;
     private final String level;
+    private final String school;
+    private final boolean isHighschool;
 
-    public Diploma(Player owner, String name, String major, String level) {
+    public Diploma(Player owner, String name, String school, boolean isHighschool) {
+        this.owner = owner;
+        this.name = name;
+        this.school = school;
+        this.major = "";
+        this.level = "";
+        this.isHighschool = isHighschool;
+    }
+
+    public Diploma(Player owner, String name, String major, String level, boolean isHighschool) {
         this.owner = owner;
         this.name = name;
         this.major = major;
         this.level = level;
+        this.school = "";
+        this.isHighschool = isHighschool;
     }
 
     public ItemStack createItem() {
@@ -52,6 +67,8 @@ public class Diploma {
         tag.putValue(DIPLOMA_NAME_FIELD, name);
         tag.putValue(DIPLOMA_MAJOR_FIELD, major);
         tag.putValue(DIPLOMA_LEVEL_FIELD, level);
+        tag.putValue(DIPLOMA_SCHOOL_FIELD, school);
+        tag.putValue(DIPLOMA_IS_HS_FIELD, isHighschool);
 
         List<String> lore = Arrays.asList(name, level, major);
 

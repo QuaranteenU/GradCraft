@@ -24,6 +24,7 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import kr.entree.spigradle.Plugin;
+import net.citizensnpcs.trait.LookAtGradTrait;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.scheduler.BukkitTask;
@@ -98,6 +99,7 @@ public class GradCraftPlugin extends PluginBase {
         // Register your trait with Citizens
         CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(GraduateTrait.class).withName("graduate"));
         CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(ProfessorTrait.class).withName("professor"));
+        CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(LookAtGradTrait.class).withName("lookatgrad"));
     }
 
     @Override
@@ -113,6 +115,7 @@ public class GradCraftPlugin extends PluginBase {
 
         CitizensAPI.getTraitFactory().deregisterTrait(TraitInfo.create(GraduateTrait.class).withName("graduate"));
         CitizensAPI.getTraitFactory().deregisterTrait(TraitInfo.create(ProfessorTrait.class).withName("professor"));
+        CitizensAPI.getTraitFactory().deregisterTrait(TraitInfo.create(LookAtGradTrait.class).withName("lookatgrad"));
     }
 
     @Override

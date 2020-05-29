@@ -159,16 +159,16 @@ public class StageController {
                         .aqua(currentGraduate.getName())
                         .toString());
 
-        if (!currentGraduate.isHighSchool())
-            builder = builder.subtitle(new MessageBuilder()
-                    .blue(currentGraduate.getDegreeLevel())
-                    .white(" - ")
-                    .blue(currentGraduate.getMajor())
-                    .toString().replaceAll("\n", ""));
-        else
+        if (currentGraduate.isHighSchool())
             builder = builder.subtitle(new MessageBuilder()
                     .blue(currentGraduate.getSchoolName())
                     .toString().replaceAll("\n", ""));
+        else
+            builder = builder.subtitle(new MessageBuilder()
+                .blue(currentGraduate.getDegreeLevel())
+                .white(" - ")
+                .blue(currentGraduate.getMajor())
+                .toString().replaceAll("\n", ""));
 
         t = builder.build();
 

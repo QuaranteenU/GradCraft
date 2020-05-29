@@ -16,6 +16,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.bergerkiller.bukkit:BKCommonLib:1.15.2-v4-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.sk89q.worldguard:worldguard-bukkit:7.0.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.sk89q.worldedit:worldedit-bukkit:7.1.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: com.comphenix.protocol:ProtocolLib:4.5.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: net.citizensnpcs:citizens:2.0.26-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: kr.entree:spigradle:1.2.4" level="project" />
     <orderEntry type="library" name="Gradle: mysql:mysql-connector-java:8.0.20" level="project" />
@@ -35,6 +36,8 @@
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.sk89q.worldguard:worldguard-core:7.0.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.sk89q.worldedit:worldedit-core:7.1.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.sk89q.worldedit.worldedit-libs:bukkit:7.1.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: cglib:cglib-nodep:3.2.5" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: com.comphenix.executors:BukkitExecutors:1.1-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: net.citizensnpcs:citizens-main:2.0.26-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: net.citizensnpcs:citizens-v1_8_R3:2.0.26-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: net.citizensnpcs:citizens-v1_11_R1:2.0.26-SNAPSHOT" level="project" />

@@ -21,6 +21,7 @@ package university.quaranteen.gradcraft.citizens;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.event.SpawnReason;
 import net.citizensnpcs.api.npc.NPC;
+import net.citizensnpcs.trait.LookAtGradTrait;
 import net.citizensnpcs.trait.SkinTrait;
 import net.citizensnpcs.util.Messages;
 import org.bukkit.Bukkit;
@@ -50,6 +51,8 @@ public class ProfessorNPC {
         }
 
         npc.addTrait(ProfessorTrait.class);
+        //npc.addTrait(LookAtGradTrait.class);
+        npc.getTrait(LookAtGradTrait.class).toggle();
         setSkin();
         npc.spawn(spawnPoint, SpawnReason.CREATE);
     }

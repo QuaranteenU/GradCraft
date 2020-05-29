@@ -38,7 +38,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
-import static university.quaranteen.gradcraft.commands.DbDiplomaCommand.GET_USER_NAME_AND_MAJOR_QUERY;
+import static university.quaranteen.gradcraft.commands.DbDiplomaCommand.GET_USER_DATA_QUERY;
 
 public class ProfessorTrait extends Trait implements Listener {
     private final GradCraftPlugin plugin;
@@ -57,16 +57,22 @@ public class ProfessorTrait extends Trait implements Listener {
                 if(!grad.getInventory().contains(Material.FILLED_MAP)) {
                     try {
                         Connection c = plugin.db.getConnection();
-                        PreparedStatement stmt = c.prepareStatement(GET_USER_NAME_AND_MAJOR_QUERY);
+                        PreparedStatement stmt = c.prepareStatement(GET_USER_DATA_QUERY);
                         stmt.setString(1, grad.getUniqueId().toString());
                         ResultSet res = stmt.executeQuery();
                         if (res.next()) {
+                            grad.sendMessage("Congratulations, " + grad.getName() + "! Here's your diploma!");
                             String name = res.getString(1);
                             String degreeLevel = res.getString(2);
                             String major = res.getString(3);
-                            grad.getInventory().addItem(new Diploma(grad, name, major, degreeLevel).createItem());
-                            this.plugin.getLogger().info("Congratulations, " + grad.getDisplayName() + "! Here's your diploma!");
-                            grad.sendMessage("Congratulations, " + grad.getDisplayName() + "! Here's your diploma!");
+                            String school = res.getString(4);
+                            boolean isHighschool = res.getBoolean(5);
+                            if (isHighschool)
+                                grad.getInventory().addItem(new Diploma(grad, name, school, isHighschool).createItem());
+                            else
+                                grad.getInventory().addItem(new Diploma(grad, name, major, degreeLevel, isHighschool).createItem());
+                        } else {
+                            grad.sendMessage("You're not a graduate! :(");
                         }
                         res.close();
                         c.close();
@@ -74,6 +80,8 @@ public class ProfessorTrait extends Trait implements Listener {
                         this.plugin.getLogger().severe(grad.getDisplayName() + " \"" + grad.getUniqueId().toString() + "\" - diploma failed");
                         ex.printStackTrace();
                     }
+                } else {
+                    grad.sendMessage("You've already received your diploma!");
                 }
             }
         }
