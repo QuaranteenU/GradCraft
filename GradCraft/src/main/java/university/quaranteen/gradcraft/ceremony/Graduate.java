@@ -1,3 +1,21 @@
+/*
+    This file is part of GradCraft, by the Quaranteen University team.
+    https://quaranteen.university
+
+    GradCraft is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    GradCraft is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with GradCraft.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package university.quaranteen.gradcraft.ceremony;
 
 import com.bergerkiller.bukkit.common.utils.PlayerUtil;
@@ -9,7 +27,7 @@ import java.time.Duration;
 import java.util.UUID;
 
 public class Graduate {
-    public Graduate(int id, ActiveCeremony ceremony, String name, String pronunciation, String degreeLevel, String honors, String major, String seniorQuote, UUID uuid, String universityName, boolean graduated, Timestamp timeslot) {
+    public Graduate(int id, ActiveCeremony ceremony, String name, String pronunciation, String degreeLevel, String honors, String major, String seniorQuote, UUID uuid, String schoolName, boolean isHighSchool, boolean graduated, Timestamp timeslot) {
         this.id = id;
         this.name = name;
         this.pronunciation = pronunciation;
@@ -17,7 +35,8 @@ public class Graduate {
         this.honors = honors;
         this.major = major;
         this.seniorQuote = seniorQuote;
-        this.universityName = universityName;
+        this.schoolName = schoolName;
+        this.isHighSchool = isHighSchool;
         this.graduated = graduated;
         this.ceremony = ceremony;
         if (uuid != null)
@@ -25,7 +44,7 @@ public class Graduate {
         this.timeslot = timeslot;
     }
 
-    public Graduate(int id, ActiveCeremony ceremony, String name, String pronunciation, String degreeLevel, String honors, String major, String seniorQuote, String uuid, String universityName, boolean graduated, Timestamp timeslot) {
+    public Graduate(int id, ActiveCeremony ceremony, String name, String pronunciation, String degreeLevel, String honors, String major, String seniorQuote, String uuid, String schoolName, boolean isHighSchool, boolean graduated, Timestamp timeslot) {
         this.id = id;
         this.name = name;
         this.pronunciation = pronunciation;
@@ -33,7 +52,8 @@ public class Graduate {
         this.honors = honors;
         this.major = major;
         this.seniorQuote = seniorQuote;
-        this.universityName = universityName;
+        this.schoolName = schoolName;
+        this.isHighSchool = isHighSchool;
         this.graduated = graduated;
         this.ceremony = ceremony;
         if (uuid != null)
@@ -41,15 +61,16 @@ public class Graduate {
         this.timeslot = timeslot;
     }
 
-    private int id;
-    private String name;
-    private String pronunciation;
-    private String degreeLevel;
-    private String honors;
-    private String major;
-    private String seniorQuote;
-    private String universityName;
-    private ActiveCeremony ceremony;
+    private final int id;
+    private final String name;
+    private final String pronunciation;
+    private final String degreeLevel;
+    private final String honors;
+    private final String major;
+    private final String seniorQuote;
+    private final String schoolName;
+    private final ActiveCeremony ceremony;
+    private final boolean isHighSchool;
     private UUID uuid;
     private boolean graduated;
     private final Timestamp timeslot;
@@ -83,6 +104,10 @@ public class Graduate {
         return seniorQuote;
     }
 
+    public boolean isHighSchool() {
+        return isHighSchool;
+    }
+
     public UUID getUuid() {
         return uuid;
     }
@@ -93,8 +118,8 @@ public class Graduate {
         return (Player) PlayerUtil.getEntity(ceremony.getStageController().getWorld(), uuid);
     }
 
-    public String getUniversityName() {
-        return universityName;
+    public String getSchoolName() {
+        return schoolName;
     }
 
     public boolean isGraduated() {

@@ -1,7 +1,26 @@
+/*
+    This file is part of GradCraft, by the Quaranteen University team.
+    https://quaranteen.university
+
+    GradCraft is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    GradCraft is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with GradCraft.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package university.quaranteen.gradcraft;
 
 import com.bergerkiller.bukkit.common.Common;
 import com.bergerkiller.bukkit.common.PluginBase;
+import com.comphenix.protocol.ProtocolLibrary;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import kr.entree.spigradle.Plugin;
@@ -12,12 +31,9 @@ import university.quaranteen.gradcraft.ceremony.ActiveCeremony;
 import university.quaranteen.gradcraft.ceremony.CeremonyTimer;
 import university.quaranteen.gradcraft.ceremony.commands.*;
 import university.quaranteen.gradcraft.commands.DbDiplomaCommand;
-import university.quaranteen.gradcraft.commands.DiplomaCommand;
 import university.quaranteen.gradcraft.commands.RobesCommand;
-import university.quaranteen.gradcraft.diploma.Diploma;
 import university.quaranteen.gradcraft.nametags.NametagListener;
 import university.quaranteen.gradcraft.citizens.*;
-import university.quaranteen.gradcraft.commands.*;
 
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.trait.TraitInfo;
@@ -31,7 +47,8 @@ public class GradCraftPlugin extends PluginBase {
     public ActiveCeremony ceremony;
 
     public BukkitTask ceremonyTimerTask;
-    public GraduateNPC currentGraduateNPC = null;
+
+    //private NametagListener nametagListener;
 
     @Override
     public int getMinimumLibVersion() {
@@ -47,7 +64,7 @@ public class GradCraftPlugin extends PluginBase {
 
         // connect to database
         HikariConfig dbconfig = new HikariConfig();
-        dbconfig.setJdbcUrl(config.getString("db.server", "jdbc:mysql://localhost:3306/gradcraft"));
+        dbconfig.setJdbcUrl(config.getString("db.server", "jdbc:mysql://localhost:3306/gradcraft?serverTimezone=UTC"));
         dbconfig.setUsername(config.getString("db.username", "root"));
         dbconfig.setPassword(config.getString("db.password", "asdfasdf"));
         dbconfig.addDataSourceProperty("characterEncoding", "UTF-8");
@@ -60,8 +77,7 @@ public class GradCraftPlugin extends PluginBase {
         getLogger().info("GradCraft initialized!");
 
         // register commands
-        this.getCommand("diploma").setExecutor(new DiplomaCommand());
-        this.getCommand("dbdiploma").setExecutor(new DbDiplomaCommand(this));
+        this.getCommand("diploma").setExecutor(new DbDiplomaCommand(this));
         this.getCommand("robes").setExecutor(new RobesCommand(this));
 
         // ceremony commands
@@ -75,7 +91,9 @@ public class GradCraftPlugin extends PluginBase {
 
         this.getServer().getScheduler().runTaskTimer(this, new CeremonyTimer(this), 20, 20);
 
-        this.register(new NametagListener(this));
+        //nametagListener = new NametagListener(this);
+        //this.register(nametagListener);
+        //ProtocolLibrary.getProtocolManager().addPacketListener(nametagListener);
 
         // Register your trait with Citizens
         CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(GraduateTrait.class).withName("graduate"));
@@ -89,6 +107,12 @@ public class GradCraftPlugin extends PluginBase {
             this.getServer().getScheduler().cancelTask(ceremonyTimerTask.getTaskId());
         if (db != null)
             db.close();
+
+        //if (nametagListener != null)
+        //    ProtocolLibrary.getProtocolManager().removePacketListener(nametagListener);
+
+        CitizensAPI.getTraitFactory().deregisterTrait(TraitInfo.create(GraduateTrait.class).withName("graduate"));
+        CitizensAPI.getTraitFactory().deregisterTrait(TraitInfo.create(ProfessorTrait.class).withName("professor"));
     }
 
     @Override

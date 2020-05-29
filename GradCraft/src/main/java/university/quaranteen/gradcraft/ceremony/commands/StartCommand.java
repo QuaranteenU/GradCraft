@@ -1,7 +1,24 @@
+/*
+    This file is part of GradCraft, by the Quaranteen University team.
+    https://quaranteen.university
+
+    GradCraft is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    GradCraft is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with GradCraft.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package university.quaranteen.gradcraft.ceremony.commands;
 
 import com.bergerkiller.bukkit.common.MessageBuilder;
-import com.bergerkiller.bukkit.common.utils.WorldUtil;
 import com.zaxxer.hikari.HikariDataSource;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -12,6 +29,7 @@ import org.bukkit.entity.Player;
 import university.quaranteen.gradcraft.GradCraftPlugin;
 import university.quaranteen.gradcraft.ceremony.ActiveCeremony;
 
+import javax.annotation.Nonnull;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,7 +48,7 @@ public class StartCommand implements CommandExecutor {
     private final GradCraftPlugin plugin;
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage("Can't run this from console!");
             return true;

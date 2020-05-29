@@ -1,19 +1,29 @@
+/*
+    This file is part of GradCraft, by the Quaranteen University team.
+    https://quaranteen.university
+
+    GradCraft is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    GradCraft is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with GradCraft.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package university.quaranteen.gradcraft.ceremony;
 
-import com.bergerkiller.bukkit.common.MessageBuilder;
-import com.destroystokyo.paper.Title;
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.zaxxer.hikari.HikariDataSource;
-import net.md_5.bungee.api.chat.BaseComponent;
-import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import university.quaranteen.gradcraft.GradCraftPlugin;
 
 import java.sql.*;
-import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ActiveCeremony {
     public ActiveCeremony(int id, World world, GradCraftPlugin plugin) {
@@ -22,10 +32,10 @@ public class ActiveCeremony {
         this.stageController = new StageController(world, plugin);
     }
 
-    private int id;
+    private final int id;
     private World world;
     private Player controller;
-    private HikariDataSource db;
+    private final HikariDataSource db;
     private Graduate currentGraduate;
     private final StageController stageController;
 
@@ -61,11 +71,11 @@ public class ActiveCeremony {
         ResultSet res;
         try {
             c = db.getConnection();
-            PreparedStatement stmt = c.prepareStatement("SELECT g.id, g.name, pronunciation, degreeLevel, honors,  major, seniorQuote, uuid, u.name, graduated, timeslot " +
-                    "from graduates g join universities u on g.university = u.id " +
-                    "where not graduated and ceremony = ? " +
-                    "order by timeslot asc "+
-                    "limit 1;");
+            PreparedStatement stmt = c.prepareStatement("SELECT g.id, g.name, pronunciation, degreeLevel, honors,  major, seniorQuote, uuid, u.name, isHighSchool, graduated, timeslot " +
+                    "FROM graduates g JOIN universities u ON g.university = u.id " +
+                    "WHERE NOT graduated AND ceremony = ? " +
+                    "ORDER BY timeslot ASC "+
+                    "LIMIT 1;");
             stmt.setInt(1, this.id);
             res = stmt.executeQuery();
             Graduate g = null;
@@ -82,7 +92,8 @@ public class ActiveCeremony {
                         res.getString(8),
                         res.getString(9),
                         res.getBoolean(10),
-                        res.getTimestamp(11)
+                        res.getBoolean(11),
+                        res.getTimestamp(12)
                 );
             }
             res.close();

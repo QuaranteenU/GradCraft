@@ -1,3 +1,21 @@
+/*
+    This file is part of GradCraft, by the Quaranteen University team.
+    https://quaranteen.university
+
+    GradCraft is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    GradCraft is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with GradCraft.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package university.quaranteen.gradcraft.ceremony.commands;
 
 import com.bergerkiller.bukkit.common.MessageBuilder;
@@ -5,23 +23,22 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import university.quaranteen.gradcraft.GradCraftPlugin;
-import university.quaranteen.gradcraft.ceremony.Graduate;
 
+import javax.annotation.Nonnull;
 import java.sql.*;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
-import java.time.temporal.Temporal;
 
 public class StatusCommand implements CommandExecutor {
     public StatusCommand(GradCraftPlugin plugin) {
         this.plugin = plugin;
     }
 
-    private GradCraftPlugin plugin;
+    private final GradCraftPlugin plugin;
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
         if (plugin.ceremony == null) {
             sender.sendMessage(new MessageBuilder()
                     .red("There is no active ceremony.")
@@ -38,7 +55,7 @@ public class StatusCommand implements CommandExecutor {
         try {
             c = plugin.db.getConnection();
 
-            PreparedStatement stmt = c.prepareStatement("select count(*), min(timeslot), max(timeslot) from graduates where ceremony = ?");
+            PreparedStatement stmt = c.prepareStatement("SELECT COUNT(*), MIN(timeslot), MAX(timeslot) FROM graduates WHERE ceremony = ?");
             stmt.setInt(1, plugin.ceremony.getId());
             res = stmt.executeQuery();
             if (res.next()) {
@@ -51,7 +68,7 @@ public class StatusCommand implements CommandExecutor {
             }
             res.close();
 
-            stmt = c.prepareStatement("select count(*) from graduates where not graduated and ceremony = ?");
+            stmt = c.prepareStatement("SELECT COUNT(*) FROM graduates WHERE NOT graduated AND ceremony = ?");
             stmt.setInt(1, plugin.ceremony.getId());
             res = stmt.executeQuery();
             if (res.next()) {

@@ -1,16 +1,32 @@
+/*
+    This file is part of GradCraft, by the Quaranteen University team.
+    https://quaranteen.university
+
+    GradCraft is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    GradCraft is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with GradCraft.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package university.quaranteen.gradcraft.citizens;
 
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.event.SpawnReason;
 import net.citizensnpcs.api.npc.NPC;
-import net.citizensnpcs.api.util.Messaging;
 import net.citizensnpcs.trait.SkinTrait;
 import net.citizensnpcs.util.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandException;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -18,19 +34,17 @@ import university.quaranteen.gradcraft.GradCraftPlugin;
 import university.quaranteen.gradcraft.ceremony.Graduate;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 
 import static university.quaranteen.gradcraft.nametags.NametagListener.getAbbreviatedName;
 
 public class GraduateNPC {
     private final GradCraftPlugin plugin;
-    private Graduate grad;
-    private NPC npc;
+    private final Graduate grad;
+    private final NPC npc;
 
     public static final String alexUUID = "66a68bc0-2e3c-40ce-984c-3153646d1694";
     public static final String alexSignature = "iCp20y1BzuwlIIM9TR0r0UQf2dKnM5h0qSVVBmOoN3d4NS9dWVKoY2IyYkb6BukF6XjQ/HgdXqNGEdJpggUJqUd67acFhZhLV6XXpAWg2scBC5cm/sbvC4c3Dj3B8/xWtjyZpM4dv12NOBbQAcZBFWYU1pSmwyJRkF2bcBwcD/WkrQqM8OvvkSrPsYWg2ZHgJPOElIbGr2Qbo+cTCLK8cEaruWSDT9PGzqLp0YKr6r4zonA0H08fJtNrKGY6tx8NkpJWA/5OTgsyldbChQmIUUVG1rxM9NnOBX9HsWe2WGt/FJ7yI0vHgML+dSmrjA071nZ3+Arue6I6XowjcUaWndQ2g/POhqMHkohIqXGgmXio0oGgZSW7gbDWztB/s52n4Xt/LEraypLzHRbwyYLqwW12fpjwq7sUE47UjteUO3QmXu/ZFAVpdVjkMRNS038MrZIJeoTXK3FtkmTl6LIucXfYA6mK7yUF8ueacgT0rzrb4VQKXSW9jAnAYPFclaiITkcZS1mx1mTSftAWQYaCzPvIyNycE9aEAjxWQHwJ6GMR6VXAF6LbIbaLtqBJw9DoksUw3CX7Hszwsw06ec4n+WG1LUmPWXRuPszdiTGQFmXIGZeAlDKahTDIHYlKvXgAg84mVVY/qIxAqcmPwwhtbhYut9pz5rRUNH2NjCCgHyc=";
@@ -52,6 +66,36 @@ public class GraduateNPC {
         npc.spawn(spawnPoint, SpawnReason.CREATE);
     }
 
+    private JSONObject fetchSkin() {
+        BufferedReader reader = null;
+        JSONObject data = null;
+        try {
+            URL target = new URL("https://api.mineskin.org/generate/user/" + grad.getUuid().toString());
+            HttpURLConnection con = (HttpURLConnection) target.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0"); // feelsbadman
+            con.setDoOutput(true);
+            con.setConnectTimeout(1000);
+            con.setReadTimeout(30000);
+            reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            JSONObject output = (JSONObject) new JSONParser().parse(reader);
+            data = (JSONObject) output.get("data");
+            con.disconnect();
+            return data;
+        } catch (Throwable t) {
+            plugin.getLogger().severe(npc.getName() + ":" + Messages.ERROR_SETTING_SKIN_URL + ":" + t.toString());
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    plugin.getLogger().severe(e.toString());
+                }
+            }
+        }
+        return data;
+    }
+
     private void setSkin() {
         final SkinTrait trait = npc.getTrait(SkinTrait.class);
         if (grad.getUuid() == null) {
@@ -59,36 +103,15 @@ public class GraduateNPC {
             return;
         }
 
-
         Bukkit.getScheduler().runTaskAsynchronously(CitizensAPI.getPlugin(), () -> {
-            BufferedReader reader = null;
-            try {
-                URL target = new URL("https://api.mineskin.org/generate/user/" + grad.getUuid().toString());
-                HttpURLConnection con = (HttpURLConnection) target.openConnection();
-                con.setRequestMethod("GET");
-                con.setRequestProperty ("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0"); // feelsbadman
-                con.setDoOutput(true);
-                con.setConnectTimeout(1000);
-                con.setReadTimeout(30000);
-                reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                JSONObject output = (JSONObject) new JSONParser().parse(reader);
-                JSONObject data = (JSONObject) output.get("data");
+            JSONObject data = fetchSkin();
+
+            if (data != null) {
                 String uuid = (String) data.get("uuid");
                 JSONObject texture = (JSONObject) data.get("texture");
                 String textureEncoded = (String) texture.get("value");
                 String signature = (String) texture.get("signature");
-                con.disconnect();
                 Bukkit.getScheduler().runTask(CitizensAPI.getPlugin(), () -> trait.setSkinPersistent(uuid, signature, textureEncoded));
-            } catch (Throwable t) {
-                plugin.getLogger().severe(npc.getName() + ":" + Messages.ERROR_SETTING_SKIN_URL + ":" + t.toString());
-            } finally {
-                if (reader != null) {
-                    try {
-                        reader.close();
-                    } catch (IOException e) {
-                        plugin.getLogger().severe(e.toString());
-                    }
-                }
             }
         });
     }

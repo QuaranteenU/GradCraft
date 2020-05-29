@@ -1,13 +1,29 @@
+/*
+    This file is part of GradCraft, by the Quaranteen University team.
+    https://quaranteen.university
+
+    GradCraft is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    GradCraft is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with GradCraft.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package university.quaranteen.gradcraft.citizens;
 
-import net.citizensnpcs.api.event.NPCClickEvent;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.trait.Trait;
 import net.citizensnpcs.api.trait.trait.Equipment;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -49,8 +65,8 @@ public class ProfessorTrait extends Trait implements Listener {
                             String degreeLevel = res.getString(2);
                             String major = res.getString(3);
                             grad.getInventory().addItem(new Diploma(grad, name, major, degreeLevel).createItem());
-                            this.plugin.getLogger().info("Congratulations, " + grad.getDisplayName() + " \"" + grad.getUniqueId().toString() + "\"! Here's your diploma!");
-                            grad.sendMessage("Congratulations, " + grad.getDisplayName() + " \"" + grad.getUniqueId().toString() + "\"! Here's your diploma!");
+                            this.plugin.getLogger().info("Congratulations, " + grad.getDisplayName() + "! Here's your diploma!");
+                            grad.sendMessage("Congratulations, " + grad.getDisplayName() + "! Here's your diploma!");
                         }
                         res.close();
                         c.close();

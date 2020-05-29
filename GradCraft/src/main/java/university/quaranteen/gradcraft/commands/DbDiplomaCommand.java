@@ -1,3 +1,21 @@
+/*
+    This file is part of GradCraft, by the Quaranteen University team.
+    https://quaranteen.university
+
+    GradCraft is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    GradCraft is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with GradCraft.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package university.quaranteen.gradcraft.commands;
 
 import org.bukkit.command.Command;
@@ -27,17 +45,18 @@ public class DbDiplomaCommand implements CommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             try {
-                this.plugin.getLogger().info("Congratulations, " + player.getDisplayName() + " \"" + player.getUniqueId().toString() + "\"! Here's your diploma!");
                 Connection c = plugin.db.getConnection();
                 PreparedStatement stmt = c.prepareStatement(GET_USER_NAME_AND_MAJOR_QUERY);
                 stmt.setString(1, player.getUniqueId().toString());
                 ResultSet res = stmt.executeQuery();
-                player.sendMessage("Congratulations, " + player.getDisplayName() + " \"" + player.getUniqueId().toString() + "\"! Here's your diploma!");
                 if (res.next()) {
+                    player.sendMessage("Congratulations, " + player.getName() + "! Here's your diploma!");
                     String name = res.getString(1);
                     String degreeLevel = res.getString(2);
                     String major = res.getString(3);
                     player.getInventory().addItem(new Diploma(player, name, major, degreeLevel).createItem());
+                } else {
+                    player.sendMessage("You're not a graduate! :(");
                 }
                 res.close();
                 c.close();

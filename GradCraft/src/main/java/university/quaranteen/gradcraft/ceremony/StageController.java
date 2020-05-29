@@ -1,3 +1,21 @@
+/*
+    This file is part of GradCraft, by the Quaranteen University team.
+    https://quaranteen.university
+
+    GradCraft is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    GradCraft is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with GradCraft.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package university.quaranteen.gradcraft.ceremony;
 
 import com.bergerkiller.bukkit.common.MessageBuilder;
@@ -23,9 +41,6 @@ import university.quaranteen.gradcraft.citizens.GraduateNPC;
 import university.quaranteen.gradcraft.citizens.ProfessorNPC;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
-import java.util.logging.Logger;
 
 public class StageController {
     private final World world;
@@ -125,7 +140,7 @@ public class StageController {
         m.newLine()
                 .green(g.getDegreeLevel() + " - " + g.getMajor())
                 .newLine()
-                .green(g.getUniversityName())
+                .green(g.getSchoolName())
                 .newLine();
 
         if (g.getHonors() != null) {
@@ -138,24 +153,34 @@ public class StageController {
 
     public void notifySpectators() {
         List<Player> players = this.world.getPlayers();
-        Title t = Title.builder().stay(60)
+        Title t;
+        Title.Builder builder = Title.builder().stay(60)
                 .title(new MessageBuilder()
                         .aqua(currentGraduate.getName())
-                        .toString())
-                .subtitle(new MessageBuilder()
-                        .blue(currentGraduate.getDegreeLevel())
-                        .white(" - ")
-                        .blue(currentGraduate.getMajor())
-                        .toString())
-                .build();
+                        .toString());
+
+        if (!currentGraduate.isHighSchool())
+            builder = builder.subtitle(new MessageBuilder()
+                    .blue(currentGraduate.getDegreeLevel())
+                    .white(" - ")
+                    .blue(currentGraduate.getMajor())
+                    .toString().replaceAll("\n", ""));
+        else
+            builder = builder.subtitle(new MessageBuilder()
+                    .blue(currentGraduate.getSchoolName())
+                    .toString().replaceAll("\n", ""));
+
+        t = builder.build();
 
         // trying this out - all formatting applies to the last item appended
         ComponentBuilder msg = new ComponentBuilder();
         msg.append(currentGraduate.getName() + "\n").bold(true).color(ChatColor.AQUA);
-        msg.append(currentGraduate.getDegreeLevel()).bold(false).color(ChatColor.BLUE);
-        msg.append(" - ").color(ChatColor.WHITE);
-        msg.append(currentGraduate.getMajor() + "\n").color(ChatColor.BLUE);
-        msg.append(currentGraduate.getUniversityName()).color(ChatColor.BLUE);
+        if (!currentGraduate.isHighSchool()) {
+            msg.append(currentGraduate.getDegreeLevel()).bold(false).color(ChatColor.BLUE);
+            msg.append(" - ").color(ChatColor.WHITE);
+            msg.append(currentGraduate.getMajor() + "\n").color(ChatColor.BLUE);
+        }
+        msg.append(currentGraduate.getSchoolName()).color(ChatColor.BLUE);
 
         BaseComponent[] toSend = msg.getParts().toArray(new BaseComponent[0]);
 

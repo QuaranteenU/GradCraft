@@ -1,3 +1,21 @@
+/*
+    This file is part of GradCraft, by the Quaranteen University team.
+    https://quaranteen.university
+
+    GradCraft is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    GradCraft is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with GradCraft.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 import kr.entree.spigradle.attribute.*
 
 plugins {
@@ -10,9 +28,15 @@ plugins {
 group 'university.quaranteen'
 version '1.0-SNAPSHOT'
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
 repositories {
     mavenCentral()
     enginehub()
+    protocolLib()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     maven { url 'https://oss.sonatype.org/content/repositories/central' }
     maven { url 'https://ci.mg-dev.eu/plugin/repository/everything' }
@@ -23,18 +47,14 @@ spigot {
     authors = ['Quaranteen University Team']
     apiVersion = '1.15'
     load = Load.POST_WORLD
-    depends = ['BKCommonLib', 'WorldGuard']
+    depends = ['BKCommonLib', 'WorldGuard', 'ProtocolLib', 'Citizens']
     name = 'GradCraft'
     description = 'A plugin for QU'
     website = 'https://quaranteen.university/'
     commands {
         diploma {
-            description = 'Diploma command'
-            usage = '/diploma <name> <major>'
-        }
-        dbdiploma {
-            description = 'Get your diploma from the database!'
-            usage = '/dbdiploma'
+            description = 'Get your diploma!'
+            usage = '/diploma'
         }
         cerlist {
             description = 'List available ceremonies'
@@ -104,6 +124,7 @@ dependencies {
     compileOnly 'com.bergerkiller.bukkit:BKCommonLib:1.15.2-v4-SNAPSHOT'
     compileOnly worldedit()
     compileOnly worldguard()
+    compileOnly protocolLib()
     implementation 'mysql:mysql-connector-java:8.0.20'
     implementation 'com.zaxxer:HikariCP:3.4.5'
     compileOnly 'net.citizensnpcs:citizens:2.0.26-SNAPSHOT'
