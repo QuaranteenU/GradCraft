@@ -13,7 +13,15 @@ Graduation run-of-show plugin for Quaranteen University, which allows Minecraft 
 *Make sure that permissions for `/cer` commands are restricted to admins to prevent users from interfering with the ceremony!*
 
 ## Installation
-After cloning this repository, do a gradle build (we recommend using IntelliJ IDEA). If it's successful, inside the `build/libs` directory you'll see `GradCraft-1.0-SNAPSHOT-all.jar`. Place that jar in your server plugins folder and restart your server. Once the plugin has loaded, you'll notice a GradCraft folder with a `config.yml` inside. You'll need to edit that file to work for your specific setup.
+First, make sure your server has the following plugins already:
+- Paper
+- BKCommonLib
+- WorldEdit (or FAWE)
+- WorldGuard
+- ProtocolLib
+- Citizens
+
+Clone this repository and do a gradle build (we recommend using IntelliJ IDEA). If it's successful, inside the `build/libs` directory you'll see `GradCraft-1.0-SNAPSHOT-all.jar`. Place that jar in your server plugins folder and restart your server. Once the plugin has loaded, you'll notice a GradCraft folder with a `config.yml` inside. You'll need to edit that file to work for your specific setup.
 
 - First you'll need to update the the SQL database connection information. Make sure that the server URL includes a timezone parameter that reflects where the showrunners are, e.g. if the server's timezone is PST and showrunners are in EST, you'll want to append `?serverTimezone=America/New_York&useLegacyDatetimeCode=false` to your server URL so that the graduates' timeslots are localized correctly. This is because SQL inserts timestamps as UTC but converts them to the clients timezone when reading.
 - Next, set the name of the world and stage region (created by an admin with WorldGuard). This is so that the ceremony only runs on the specified world (so if you're on a server with multiple worlds the ceremony won't interfere with them), and the stage region prevents users from crowding the stage when it's not their turn.
