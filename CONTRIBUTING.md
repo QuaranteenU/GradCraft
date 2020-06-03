@@ -3,3 +3,4 @@ There's no strict guidelines, just try to follow the code style and folder struc
 
 ## Things you could potentially add
 - Right now the way the graduate NPCs traverse the stage is pretty jank, it uses a navigation ended hook and boolean flags to decide what actions to take/where to move next. Making the navigation more easily configurable/robust would be very helpful!
+- Fixing the nametag listener to change the names over the heads of graduates to be their real names instead of their Minecraft usernames.
